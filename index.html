@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Navegación - Tecno Things</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .links {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .link-group {
+            text-align: left;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .link-group h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .link-group a {
+            display: block;
+            padding: 10px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 13px;
+            word-break: break-all;
+            border-radius: 4px;
+            transition: background 0.2s;
+            margin: 5px 0;
+        }
+        .link-group a:hover {
+            background: #e8eaf6;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #155724;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .footer {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 20px;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Tecno Things</h1>
+        <p class="subtitle">Sistema de E-commerce - Navegación Completa</p>
+
+        <div class="success">
+            <strong>✓ Sistema Completado</strong><br>
+            Se han creado todas las páginas y funcionalidades solicitadas. Haz clic en los enlaces a continuación para probar.
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Importante:</strong> Para que funcione correctamente, necesitas servir estos archivos a través de un servidor HTTP (no file://). Puedes usar:
+            <br><br>
+            <code>python -m http.server 8000</code> (Python 3)<br>
+            <code>http-server</code> (Node.js)<br>
+            <code>Live Server</code> (VS Code Extension)
+        </div>
+
+        <div class="link-group">
+            <h3>📱 Página Principal</h3>
+            <a href="stitch/tecno_things_landing_page/index.html">→ Landing Page</a>
+        </div>
+
+        <div class="link-group">
+            <h3>🛍️ Categorías de Productos</h3>
+            <a href="stitch/tecno_things_landing_page/products-by-category.html?category=perifericos">→ Periféricos</a>
+            <a href="stitch/tecno_things_landing_page/products-by-category.html?category=monitores">→ Monitores</a>
+            <a href="stitch/tecno_things_landing_page/products-by-category.html?category=hardware">→ Hardware</a>
+            <a href="stitch/tecno_things_landing_page/products-by-category.html?category=laptops">→ Laptops</a>
+        </div>
+
+        <div class="link-group">
+            <h3>📦 Detalles de Productos</h3>
+            <a href="stitch/tecno_things_landing_page/product-detail.html?id=1">→ Producto #1</a>
+            <a href="stitch/tecno_things_landing_page/product-detail.html?id=2">→ Producto #2</a>
+            <a href="stitch/tecno_things_landing_page/product-detail.html?id=3">→ Producto #3</a>
+            <a href="stitch/tecno_things_landing_page/product-detail.html?id=4">→ Producto #4</a>
+        </div>
+
+        <div class="link-group">
+            <h3>🛒 Carrito de Compras</h3>
+            <a href="stitch/tecno_things_landing_page/cart.html">→ Ver Carrito</a>
+        </div>
+
+        <div class="link-group">
+            <h3>🔐 Autenticación</h3>
+            <a href="stitch/login_and_registration/code.html">→ Login/Registro</a>
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>Usuarios de prueba:</strong><br>
+                Email: user@test.com | Password: password123<br>
+                Email: admin@test.com | Password: admin123
+            </p>
+        </div>
+    </div>
+</body>
+</html>

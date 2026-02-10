@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Carrito de Compras | Cliente</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#ffffff",
+            "background-light": "#f8fafc",
+            "background-dark": "#000000",
+            accent: "#3b82f6"
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "12px",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen pb-24 lg:pb-0">
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-30 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-slate-200 dark:border-neutral-800 px-4 py-3 lg:px-6 lg:py-4 overflow-visible">
+  <div class="flex items-center justify-between max-w-full mx-auto">
+    <div class="flex items-center gap-4">
+      <!-- Hamburger menu (mobile) -->
+      <button id="menu-toggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-neutral-800">
+        <span class="material-icons-round">menu</span>
+      </button>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden lg:flex items-center gap-6">
+      <a href="../tecno_things_landing_page/index.html" class="text-sm font-medium hover:text-accent transition-colors">Inicio</a>
+      <a href="../tecno_things_landing_page/blogs.html" class="text-sm font-medium hover:text-accent transition-colors">Blogs</a>
+    </div>
+
+    <!-- Auth Section -->
+    <div class="flex items-center space-x-2">
+      <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors">
+        <span class="material-icons-round text-2xl">light_mode</span>
+      </button>
+      <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors">
+        <span class="material-icons-round text-2xl">search</span>
+      </button>
+      <div id="auth-container">
+        <div class="relative group">
+          <button class="flex items-center space-x-1 p-1 pl-2 rounded-full border border-slate-200 dark:border-neutral-800 hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer group">
+            <span class="material-icons-round text-xl">account_circle</span>
+            <span class="material-icons-round text-lg hidden md:inline">keyboard_arrow_down</span>
+          </button>
+          <div class="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-xl hidden group-hover:block z-50 overflow-visible">
+            <div class="px-4 py-3 border-b border-slate-100 dark:border-neutral-800">
+              <p id="userNameDisplay" class="text-sm font-medium">Usuario</p>
+              <p id="userEmailDisplay" class="text-xs text-slate-500 dark:text-neutral-400">email@example.com</p>
+            </div>
+            <button onclick="window.showMenuCustomer('account')" class="w-full text-left flex items-center px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-neutral-800 border-b border-slate-100 dark:border-neutral-800">
+              <span class="material-icons-round text-lg mr-2">person</span> Mi Cuenta
+            </button>
+            <button onclick="window.logoutCustomer()" class="w-full text-left flex items-center px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20">
+              <span class="material-icons-round text-lg mr-2">logout</span> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="pt-20 lg:pt-24 px-4 lg:px-6 py-8 max-w-6xl mx-auto lg:ml-48">
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 mb-6">
+    <a href="./clientDashboard.html" class="text-sm text-slate-500 dark:text-slate-400 hover:text-accent">Panel</a>
+    <span class="text-slate-500 dark:text-slate-400">/</span>
+    <span class="text-sm font-medium text-accent">Carrito</span>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-8">Tu Carrito de Compras</h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Items del carrito -->
+    <div class="lg:col-span-2">
+      <div id="cart-items-container" class="space-y-4">
+        <!-- Se llena dinámicamente -->
+      </div>
+
+      <!-- Empty state -->
+      <div id="empty-cart-state" class="hidden text-center py-12">
+        <span class="material-icons-round text-6xl opacity-30">shopping_bag</span>
+        <h3 class="text-xl font-semibold mt-4">Tu carrito está vacío</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Agrega productos para comenzar a comprar</p>
+        <a href="./clientDashboard.html" class="inline-block px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent/90">
+          Continuar Comprando
+        </a>
+      </div>
+    </div>
+
+    <!-- Resumen y Checkout -->
+    <div class="lg:col-span-1">
+      <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-6 sticky top-20">
+        <h2 class="text-lg font-bold mb-4">Resumen de Compra</h2>
+        
+        <div class="space-y-3 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between text-sm">
+            <span>Subtotal</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span>Envío</span>
+            <span class="text-green-600 dark:text-green-400">Gratis</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-lg font-bold mb-6">
+          <span>Total</span>
+          <span id="total">$0.00</span>
+        </div>
+
+        <!-- Código de descuento -->
+        <div class="mb-6">
+          <div class="flex gap-2">
+            <input id="discount-code" type="text" placeholder="Código de descuento" class="flex-1 px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm">
+            <button onclick="applyDiscount()" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 font-medium text-sm">
+              Aplicar
+            </button>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <button id="checkout-btn" class="w-full px-6 py-3 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors mb-3">
+          Proceder a Pagar
+        </button>
+
+        <a href="./clientDashboard.html" class="w-full block text-center px-6 py-3 border border-slate-200 dark:border-slate-700 font-bold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          Continuar Comprando
+        </a>
+
+        <!-- Métodos de pago -->
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">Métodos de pago aceptados</p>
+          <div class="flex gap-2">
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              VISA
+            </div>
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              MC
+            </div>
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              PP
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full max-h-96 overflow-y-auto">
+    <div class="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold">Información de Entrega</h2>
+        <button onclick="document.getElementById('checkout-modal').classList.add('hidden')" class="text-slate-500 hover:text-slate-900 dark:hover:text-white">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="px-6 py-6 space-y-4">
+      <!-- Ciudad -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Ciudad</label>
+        <select id="city-select" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="updateParroquias()">
+          <option value="">Selecciona una ciudad</option>
+          <option value="guayaquil">Guayaquil</option>
+          <option value="santa-elena">Santa Elena</option>
+        </select>
+      </div>
+
+      <!-- Parroquia -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Parroquia/Zona</label>
+        <select id="parroquia-select" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecciona primero una ciudad</option>
+        </select>
+      </div>
+
+      <!-- Dirección -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Dirección Detallada</label>
+        <textarea id="address-input" placeholder="Ej: Cerca del mall, número de casa, referencias..." class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Teléfono</label>
+        <input type="tel" id="phone-input" placeholder="Ej: 0963328168" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Botones -->
+      <div class="space-y-2 pt-4">
+        <button onclick="sendOrderViaWhatsApp()" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors text-center">
+          <span>Comprar por WhatsApp</span>
+        </button>
+        <button onclick="processPayment()" class="w-full px-6 py-2 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors text-center">
+          Procesar Pago Demo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-4 pt-3 pb-8 z-40 flex justify-between items-center lg:hidden">
+  <a href="./clientDashboard.html" class="flex flex-col items-center gap-1">
+    <span class="material-icons-round">home</span>
+    <span class="text-[10px] font-bold">Panel</span>
+  </a>
+  <button onclick="goToAccount()" class="flex flex-col items-center gap-1">
+    <span class="material-icons-round">person_outline</span>
+    <span class="text-[10px] font-medium">Cuenta</span>
+  </button>
+</nav>
+
+<script type="module">
+  import { getCurrentUser, logoutUser } from '../users-data.js';
+  import { CartManager } from '../cart-manager.js';
+  import { themeManager } from '../theme.js';
+
+  // Inicializar tema
+  const savedTheme = localStorage.getItem('tecno-theme') || 'light';
+  themeManager.applyTheme(savedTheme);
+  updateThemeIcon();
+
+  // Toggle de tema
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    themeManager.toggleTheme();
+    updateThemeIcon();
+  });
+
+  function updateThemeIcon() {
+    const icon = document.getElementById('theme-toggle').querySelector('.material-icons-round');
+    icon.textContent = themeManager.getTheme() === 'dark' ? 'dark_mode' : 'light_mode';
+  }
+
+  function renderCart() {
+    const cart = CartManager.getCart();
+    const container = document.getElementById('cart-items-container');
+    const emptyState = document.getElementById('empty-cart-state');
+
+    if (cart.length === 0) {
+      container.innerHTML = '';
+      emptyState.classList.remove('hidden');
+      document.getElementById('checkout-btn').disabled = true;
+      document.getElementById('checkout-btn').classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+      emptyState.classList.add('hidden');
+      document.getElementById('checkout-btn').disabled = false;
+      document.getElementById('checkout-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+      container.innerHTML = cart.map((item, index) => `
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex gap-4">
+          <!-- Imagen -->
+          <div class="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="${item.image || 'https://via.placeholder.com/400x400?text=Producto+Tech'}" alt="${item.name}" class="w-full h-full object-cover">
+          </div>
+
+          <!-- Detalles -->
+          <div class="flex-1">
+            <h3 class="font-semibold mb-1">${item.name}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">$${item.price.toFixed(2)} c/u</p>
+
+            <!-- Cantidad -->
+            <div class="flex items-center gap-2 mb-3">
+              <button onclick="window.updateQty(${index}, ${item.quantity - 1})" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                <span class="material-icons-round text-sm">remove</span>
+              </button>
+              <span class="text-sm font-semibold w-8 text-center">${item.quantity}</span>
+              <button onclick="window.updateQty(${index}, ${item.quantity + 1})" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                <span class="material-icons-round text-sm">add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Precio y acciones -->
+          <div class="text-right flex flex-col items-end justify-between">
+            <div>
+              <p class="font-bold text-accent text-lg">$${(item.price * item.quantity).toFixed(2)}</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">x${item.quantity}</p>
+            </div>
+            <button onclick="window.removeFromCart(${index})" class="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg">
+              <span class="material-icons-round text-lg">delete</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    document.getElementById('subtotal').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  window.updateQty = (index, qty) => {
+    if (qty <= 0) {
+      window.removeFromCart(index);
+    } else {
+      const cart = CartManager.getCart();
+      cart[index].quantity = qty;
+      CartManager.saveCart(cart);
+      renderCart();
+    }
+  };
+
+  window.removeFromCart = (index) => {
+    const cart = CartManager.getCart();
+    cart.splice(index, 1);
+    CartManager.saveCart(cart);
+    renderCart();
+  };
+
+  window.applyDiscount = () => {
+    const code = document.getElementById('discount-code').value;
+    if (code === 'DESCUENTO10') {
+      alert('Código válido: 10% de descuento aplicado');
+      // Aquí se aplicaría el descuento real
+    } else {
+      alert('Código de descuento inválido');
+    }
+  };
+
+  // Checkout
+  document.getElementById('checkout-btn').addEventListener('click', () => {
+    const cart = CartManager.getCart();
+    if (cart.length > 0) {
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+  });
+
+  // Actualizar parroquias según ciudad seleccionada
+  const parroquiasPorCiudad = {
+    'guayaquil': [
+      'Centro',
+      'Las Peñas',
+      'Samborondón',
+      'Urdesa',
+      'Malecon 2000',
+      'Malecón del Salado',
+      'Ferroviaria',
+      'Pascuales',
+      'Durán'
+    ],
+    'santa-elena': [
+      'Centro',
+      'Salinas',
+      'Playa Blanca',
+      'Manglaralto',
+      'Olon',
+      'Montañita',
+      'Ayangue',
+      'San Pablo'
+    ]
+  };
+
+  window.updateParroquias = () => {
+    const citySelect = document.getElementById('city-select');
+    const parroquiaSelect = document.getElementById('parroquia-select');
+    const selectedCity = citySelect.value;
+
+    if (selectedCity && parroquiasPorCiudad[selectedCity]) {
+      parroquiaSelect.innerHTML = parroquiasPorCiudad[selectedCity]
+        .map(p => `<option value="${p}">${p}</option>`)
+        .join('');
+    } else {
+      parroquiaSelect.innerHTML = '<option value="">Selecciona primero una ciudad</option>';
+    }
+  };
+
+  window.sendOrderViaWhatsApp = () => {
+    const city = document.getElementById('city-select').value;
+    const parroquia = document.getElementById('parroquia-select').value;
+    const address = document.getElementById('address-input').value;
+    const phone = document.getElementById('phone-input').value;
+
+    if (!city || !parroquia || !address || !phone) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    const user = getCurrentUser();
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+    // Generar mensaje
+    let message = `¡Hola! Soy ${user ? user.name : 'Cliente'}, Me interesa hacer un pedido desde tu tienda online:\n\n`;
+    message += `*PRODUCTOS SELECCIONADOS:*\n`;
+    
+    cart.forEach((item, index) => {
+      message += `${index + 1}. *${item.name}*\n`;
+      message += `    Cantidad: ${item.quantity || 1}\n`;
+      message += `    Precio: $${item.price.toFixed(2)}\n\n`;
+    });
+
+    message += `*TOTAL: $${total.toFixed(2)}*\n\n`;
+    message += `📍 *INFORMACIÓN DE ENTREGA:*\n`;
+    message += `📍 Ciudad: ${city.charAt(0).toUpperCase() + city.slice(1).replace('-', ' ')}\n`;
+    message += `📍 Zona: ${parroquia}\n`;
+    message += `📍 Teléfono: ${phone}\n`;
+    message += `📍 Dirección: ${address}\n\n`;
+    message += `¿Podrías confirmarme la disponibilidad de los productos y los métodos de pago disponibles? 🙏\n\n`;
+    message += `Prefiero coordinar el pago y entrega directamente contigo. ¡Gracias! 😊`;
+
+    // Codificar para URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/593962873167?text=${encodedMessage}`;
+
+    // Guardar info de entrega temporalmente en sessionStorage para cuando confirme en WhatsApp
+    sessionStorage.setItem('pendingOrder', JSON.stringify({
+      city: city,
+      parroquia: parroquia,
+      address: address,
+      phone: phone
+    }));
+
+    // Abrir WhatsApp directamente
+    window.open(whatsappUrl, '_blank');
+    
+    // Cerrar modal después de enviar a WhatsApp
+    document.getElementById('checkout-modal').classList.add('hidden');
+  };
+
+  window.processPayment = () => {
+    const city = document.getElementById('city-select').value;
+    const parroquia = document.getElementById('parroquia-select').value;
+    const address = document.getElementById('address-input').value;
+    const phone = document.getElementById('phone-input').value;
+
+    if (!city || !parroquia || !address || !phone) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    processPaymentAndCreateOrder(city, parroquia, address, phone);
+  };
+
+  function processPaymentAndCreateOrder(city, parroquia, address, phone) {
+    const user = getCurrentUser();
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+    // Simular pago
+    const paymentId = 'DEMO-' + Date.now();
+    alert(`✅ Pago ficticio procesado\nID de transacción: ${paymentId}\nTotal: $${total.toFixed(2)}`);
+
+    // Crear orden
+    const order = {
+      id: 'ORD-' + Date.now(),
+      userId: user ? user.id : null,
+      items: cart,
+      total: total,
+      city: city,
+      parroquia: parroquia,
+      address: address,
+      phone: phone,
+      paymentId: paymentId,
+      status: 'pending',
+      date: new Date().toISOString()
+    };
+
+    // Guardar orden
+    const orders = JSON.parse(localStorage.getItem('tecno_orders') || '[]');
+    orders.push(order);
+    localStorage.setItem('tecno_orders', JSON.stringify(orders));
+
+    // Reducir stock (demostración)
+    const products = JSON.parse(localStorage.getItem('tecno_products') || '[]');
+    cart.forEach(cartItem => {
+      const product = products.find(p => p.id === cartItem.id);
+      if (product) {
+        product.stock = Math.max(0, (product.stock || 0) - (cartItem.quantity || 1));
+      }
+    });
+    localStorage.setItem('tecno_products', JSON.stringify(products));
+
+    // Limpiar carrito
+    CartManager.clearCart();
+
+    // Cerrar modal
+    document.getElementById('checkout-modal').classList.add('hidden');
+
+    alert(`✅ Pedido creado exitosamente!\nID de Orden: ${order.id}\n\nEnviando información a WhatsApp...`);
+  }
+
+  // Actualizar auth UI
+  function updateAuthUI() {
+    const user = getCurrentUser();
+    const container = document.getElementById('auth-container');
+    
+    if (user) {
+      document.getElementById('userNameDisplay').textContent = user.name;
+      document.getElementById('userEmailDisplay').textContent = user.email;
+    }
+  }
+
+  window.logoutCustomer = () => {
+    logoutUser();
+    location.reload();
+  };
+
+  window.goToAccount = () => {
+    window.location.href = './clientDashboard.html?section=account';
+  };
+
+  // Inicializar
+  updateAuthUI();
+  renderCart();
+</script>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 dark:bg-black text-white mt-20 border-t border-slate-800 lg:ml-48">
+  <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
+    <!-- Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <h3 class="text-2xl font-bold mb-4">TECNO THINGS</h3>
+        <p class="text-slate-400 mb-6">Tienda autorizada / Pc Gamer / Streaming</p>
+        <div class="flex gap-4">
+          <a href="https://www.instagram.com/tecnothings_ec/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">camera_alt</span>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">language</span>
+          </a>
+          <a href="mailto:info@techthings.com" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">mail</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Productos</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Periféricos</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Monitores</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Hardware</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Laptops</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Ofertas</a></li>
+        </ul>
+      </div>
+
+      <!-- Información -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Información</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Sobre nosotros</a></li>
+          <li><a href="../tecno_things_landing_page/blogs.html" class="text-slate-400 hover:text-white transition-colors">Blog</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Política de privacidad</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Términos de servicio</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Contacto</h4>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">location_on</span>
+            <span class="text-slate-400">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">phone</span>
+            <span class="text-slate-400">+593 96 287 3167</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">mail</span>
+            <span class="text-slate-400">info@techthings.com</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">schedule</span>
+            <span class="text-slate-400">Lun-Vie: 9AM-6PM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-slate-800 pt-8 mb-8"></div>
+
+    <!-- Footer Bottom -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-slate-400 text-sm">© 2026 Tecno Things. Todos los derechos reservados.</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Política de Cookies</a>
+        <span class="text-slate-600">|</span>
+        <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Preferencias</a>
+      </div>
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+        Volver arriba <span class="material-icons-round">arrow_upward</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

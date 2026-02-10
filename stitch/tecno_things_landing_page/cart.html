@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Carrito de Compras | Tecno Things</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#ffffff",
+            "background-light": "#f8fafc",
+            "background-dark": "#000000",
+            accent: "#3b82f6"
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "12px",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen pb-24 lg:pb-0">
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-30 px-4 py-3 lg:px-6 lg:py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10">
+  <div class="flex items-center justify-between max-w-full mx-auto">
+    <div class="flex items-center gap-4">
+      <!-- Hamburger menu (mobile) -->
+      <button id="menu-toggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10">
+        <span class="material-icons-round">menu</span>
+      </button>
+
+      <a href="./index.html" class="flex flex-col cursor-pointer hover:opacity-80 transition-opacity">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Tienda Autorizada</span>
+        <h1 class="text-xl font-extrabold tracking-tighter leading-none dark:text-white">TECNO THINGS</h1>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">
+        <span class="material-icons-round text-xl">light_mode</span>
+      </button>
+      <div id="auth-container"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="hidden lg:hidden fixed top-16 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-white/10 z-40 max-h-[calc(100vh-64px)] overflow-y-auto flex flex-col">
+  <div class="px-4 py-2 space-y-1 flex-shrink-0">
+    <a href="./index.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Inicio</a>
+    <a href="./blogs.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Blogs</a>
+    <a href="./cart.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Carrito</a>
+  </div>
+  
+  <!-- Categorías en móvil con scroll interno -->
+  <div class="flex-1 min-h-0 overflow-y-auto">
+    <div class="px-4 py-3 space-y-1">
+      <hr class="my-2 dark:border-white/10">
+      <div class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 px-2 py-2">Categorías</div>
+      
+      <!-- Periféricos -->
+      <div>
+        <button onclick="toggleMobileCategory(this)" class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">
+          <span class="flex items-center gap-2">
+            <span class="material-icons-round text-base">mouse</span>
+            Periféricos
+          </span>
+          <span class="material-icons-round text-base">expand_more</span>
+        </button>
+        <div class="hidden ml-4 space-y-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 my-1">
+          <a href="./products-by-category.html?category=perifericos&subcategory=mouses" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Mouses</a>
+          <a href="./products-by-category.html?category=perifericos&subcategory=teclados" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Teclados</a>
+          <a href="./products-by-category.html?category=perifericos&subcategory=auriculares" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Auriculares</a>
+          <a href="./products-by-category.html?category=perifericos&subcategory=mousepads" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Mouse Pads</a>
+          <a href="./products-by-category.html?category=perifericos&subcategory=microfonos" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Micrófonos</a>
+          <a href="./products-by-category.html?category=perifericos&subcategory=cables" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Cables</a>
+        </div>
+      </div>
+      
+      <!-- Monitores -->
+      <div>
+        <button onclick="toggleMobileCategory(this)" class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">
+          <span class="flex items-center gap-2">
+            <span class="material-icons-round text-base">desktop_mac</span>
+            Monitores
+          </span>
+          <span class="material-icons-round text-base">expand_more</span>
+        </button>
+        <div class="hidden ml-4 space-y-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 my-1">
+          <a href="./products-by-category.html?category=monitores&subcategory=monitores-24" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">24 pulgadas</a>
+          <a href="./products-by-category.html?category=monitores&subcategory=monitores-27" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">27 pulgadas</a>
+          <a href="./products-by-category.html?category=monitores&subcategory=monitores-32" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">32 pulgadas</a>
+          <a href="./products-by-category.html?category=monitores&subcategory=monitores-gaming" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Gaming</a>
+        </div>
+      </div>
+      
+      <!-- Hardware -->
+      <div>
+        <button onclick="toggleMobileCategory(this)" class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">
+          <span class="flex items-center gap-2">
+            <span class="material-icons-round text-base">build</span>
+            Hardware
+          </span>
+          <span class="material-icons-round text-base">expand_more</span>
+        </button>
+        <div class="hidden ml-4 space-y-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 my-1">
+          <a href="./products-by-category.html?category=hardware&subcategory=procesadores" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Procesadores</a>
+          <a href="./products-by-category.html?category=hardware&subcategory=tarjetas-graficas" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Tarjetas Gráficas</a>
+          <a href="./products-by-category.html?category=hardware&subcategory=memorias-ram" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Memorias RAM</a>
+          <a href="./products-by-category.html?category=hardware&subcategory=ssd" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">SSD</a>
+          <a href="./products-by-category.html?category=hardware&subcategory=discos-duros" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Discos Duros</a>
+        </div>
+      </div>
+      
+      <!-- Laptops -->
+      <div>
+        <button onclick="toggleMobileCategory(this)" class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">
+          <span class="flex items-center gap-2">
+            <span class="material-icons-round text-base">laptop</span>
+            Laptops
+          </span>
+          <span class="material-icons-round text-base">expand_more</span>
+        </button>
+        <div class="hidden ml-4 space-y-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 my-1">
+          <a href="./products-by-category.html?category=laptops&subcategory=laptops-budget" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Budget</a>
+          <a href="./products-by-category.html?category=laptops&subcategory=laptops-mid-range" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Mid-Range</a>
+          <a href="./products-by-category.html?category=laptops&subcategory=laptops-gaming" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Gaming</a>
+          <a href="./products-by-category.html?category=laptops&subcategory=laptops-profesional" class="block px-3 py-2 rounded text-xs hover:bg-slate-200 dark:hover:bg-slate-700">Profesionales</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Auth buttons al final, sin scroll -->
+  <div class="px-4 py-3 space-y-2 border-t border-slate-200 dark:border-white/10 flex-shrink-0">
+    <a href="../login_and_registration/login.html" class="block px-4 py-3 rounded-lg hover:bg-accent/10 transition-colors text-sm font-medium text-accent">Iniciar Sesión</a>
+    <a href="../login_and_registration/login.html" class="block px-4 py-3 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors text-sm font-medium">Registrarse</a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="px-4 lg:px-6 py-8 max-w-6xl mx-auto">
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 mb-6">
+    <a href="./index.html" class="text-sm text-slate-500 dark:text-slate-400 hover:text-accent">Inicio</a>
+    <span class="text-slate-500 dark:text-slate-400">/</span>
+    <span class="text-sm font-medium text-accent">Carrito</span>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-8">Tu Carrito de Compras</h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Items del carrito -->
+    <div class="lg:col-span-2">
+      <div id="cart-items-container" class="space-y-4">
+        <!-- Se llena dinámicamente -->
+      </div>
+
+      <!-- Empty state -->
+      <div id="empty-cart-state" class="hidden text-center py-12">
+        <span class="material-icons-round text-6xl opacity-30">shopping_bag</span>
+        <h3 class="text-xl font-semibold mt-4">Tu carrito está vacío</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Agrega productos para comenzar a comprar</p>
+        <a href="./index.html" class="inline-block px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent/90">
+          Continuar Comprando
+        </a>
+      </div>
+    </div>
+
+    <!-- Resumen y Checkout -->
+    <div class="lg:col-span-1">
+      <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-6 sticky top-20">
+        <h2 class="text-lg font-bold mb-4">Resumen de Compra</h2>
+        
+        <div class="space-y-3 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
+          <div class="flex justify-between text-sm">
+            <span>Subtotal</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span>Envío</span>
+            <span class="text-green-600 dark:text-green-400">Gratis</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-lg font-bold mb-6">
+          <span>Total</span>
+          <span id="total">$0.00</span>
+        </div>
+
+        <!-- Código de descuento -->
+        <div class="mb-6">
+          <div class="flex gap-2">
+            <input id="discount-code" type="text" placeholder="Código de descuento" class="flex-1 px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm">
+            <button onclick="applyDiscount()" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 font-medium text-sm">
+              Aplicar
+            </button>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <button id="checkout-btn" class="w-full px-6 py-3 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors mb-3">
+          Proceder a Pagar
+        </button>
+
+        <a href="./index.html" class="w-full block text-center px-6 py-3 border border-slate-200 dark:border-slate-700 font-bold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          Continuar Comprando
+        </a>
+
+        <!-- Métodos de pago -->
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">Métodos de pago aceptados</p>
+          <div class="flex gap-2">
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              VISA
+            </div>
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              MC
+            </div>
+            <div class="w-10 h-6 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center text-xs font-bold">
+              PP
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
+    <h2 class="text-2xl font-bold mb-6">Información de Entrega</h2>
+
+    <!-- Ciudad -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">Ciudad</label>
+      <select id="city-select" onchange="updateParroquias()" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecciona una ciudad</option>
+        <option value="guayaquil">Guayaquil</option>
+        <option value="santa-elena">Santa Elena</option>
+      </select>
+    </div>
+
+    <!-- Parroquia/Zona -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">Zona / Parroquia</label>
+      <select id="parroquia-select" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecciona primero una ciudad</option>
+      </select>
+    </div>
+
+    <!-- Dirección -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">Dirección Detallada</label>
+      <textarea id="address-input" placeholder="Ej: Cerca del mall, número de casa, referencias..." class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+    </div>
+
+    <!-- Teléfono -->
+    <div>
+      <label class="block text-sm font-medium mb-2">Teléfono</label>
+      <input type="tel" id="phone-input" placeholder="Ej: 0963328168" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Botones -->
+    <div class="space-y-2 pt-4">
+      <button onclick="sendOrderViaWhatsApp()" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors text-center">
+        <span>Comprar por WhatsApp</span>
+      </button>
+      <button onclick="processPayment()" class="w-full px-6 py-2 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors text-center">
+        Procesar Pago Demo
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { getCurrentUser, logoutUser } from '../users-data.js';
+  import { CartManager } from '../cart-manager.js';
+  import { PRODUCTS } from '../products.js';
+  import { themeManager } from '../theme.js';
+
+  // Inicializar tema
+  const savedTheme = localStorage.getItem('tecno-theme') || 'light';
+  themeManager.applyTheme(savedTheme);
+  updateThemeIcon();
+
+  // Toggle de tema
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    themeManager.toggleTheme();
+    updateThemeIcon();
+  });
+
+  function updateThemeIcon() {
+    const icon = document.getElementById('theme-toggle').querySelector('.material-icons-round');
+    icon.textContent = themeManager.getTheme() === 'dark' ? 'dark_mode' : 'light_mode';
+  }
+
+  // Toggle del menú móvil
+  const menuToggle = document.getElementById('menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    });
+  }
+
+  // Toggle para expandir/contraer categorías en móvil
+  window.toggleMobileCategory = (button) => {
+    const categoryDiv = button.parentElement;
+    const itemsDiv = categoryDiv.querySelector('div[class*="ml-4"]');
+    if (itemsDiv) {
+      itemsDiv.classList.toggle('hidden');
+      const icon = button.querySelector('.material-icons-round:last-child');
+      if (icon) {
+        icon.textContent = itemsDiv.classList.contains('hidden') ? 'expand_more' : 'expand_less';
+      }
+    }
+  };
+
+  function renderCart() {
+    const cart = CartManager.getCart();
+    const container = document.getElementById('cart-items-container');
+    const emptyState = document.getElementById('empty-cart-state');
+
+    if (cart.length === 0) {
+      container.innerHTML = '';
+      emptyState.classList.remove('hidden');
+      document.getElementById('checkout-btn').disabled = true;
+      document.getElementById('checkout-btn').classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+      emptyState.classList.add('hidden');
+      document.getElementById('checkout-btn').disabled = false;
+      document.getElementById('checkout-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+      container.innerHTML = cart.map((item, index) => `
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex gap-4">
+          <!-- Imagen -->
+          <div class="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="${item.image || 'https://via.placeholder.com/400x400?text=Producto+Tech'}" alt="${item.name}" class="w-full h-full object-cover">
+          </div>
+
+          <!-- Detalles -->
+          <div class="flex-1">
+            <h3 class="font-semibold mb-1">${item.name}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">$${item.price.toFixed(2)} c/u</p>
+
+            <!-- Cantidad -->
+            <div class="flex items-center gap-2 mb-3">
+              <button onclick="window.updateQty(${index}, ${item.quantity - 1})" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                <span class="material-icons-round text-sm">remove</span>
+              </button>
+              <span class="text-sm font-semibold w-8 text-center">${item.quantity}</span>
+              <button onclick="window.updateQty(${index}, ${item.quantity + 1})" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                <span class="material-icons-round text-sm">add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Precio y acciones -->
+          <div class="text-right flex flex-col items-end justify-between">
+            <div>
+              <p class="font-bold text-accent text-lg">$${(item.price * item.quantity).toFixed(2)}</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">x${item.quantity}</p>
+            </div>
+            <button onclick="window.removeFromCart(${index})" class="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg">
+              <span class="material-icons-round text-lg">delete</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    document.getElementById('subtotal').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  window.updateQty = (index, qty) => {
+    if (qty <= 0) {
+      window.removeFromCart(index);
+    } else {
+      const cart = CartManager.getCart();
+      cart[index].quantity = qty;
+      CartManager.saveCart(cart);
+      renderCart();
+    }
+  };
+
+  window.removeFromCart = (index) => {
+    const cart = CartManager.getCart();
+    cart.splice(index, 1);
+    CartManager.saveCart(cart);
+    renderCart();
+  };
+
+  window.applyDiscount = () => {
+    const code = document.getElementById('discount-code').value;
+    if (code === 'DESCUENTO10') {
+      alert('Código válido: 10% de descuento aplicado');
+      // Aquí se aplicaría el descuento real
+    } else {
+      alert('Código de descuento inválido');
+    }
+  };
+
+  // Checkout
+  document.getElementById('checkout-btn').addEventListener('click', () => {
+    const cart = CartManager.getCart();
+    if (cart.length > 0) {
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+  });
+
+  // Actualizar parroquias según ciudad seleccionada
+  const parroquiasPorCiudad = {
+    'guayaquil': [
+      'Centro',
+      'Las Peñas',
+      'Samborondón',
+      'Urdesa',
+      'Malecon 2000',
+      'Malecón del Salado',
+      'Ferroviaria',
+      'Pascuales',
+      'Durán'
+    ],
+    'santa-elena': [
+      'Centro',
+      'Salinas',
+      'Playa Blanca',
+      'Manglaralto',
+      'Olon',
+      'Montañita',
+      'Ayangue',
+      'San Pablo'
+    ]
+  };
+
+  window.updateParroquias = () => {
+    const citySelect = document.getElementById('city-select');
+    const parroquiaSelect = document.getElementById('parroquia-select');
+    const selectedCity = citySelect.value;
+
+    if (selectedCity && parroquiasPorCiudad[selectedCity]) {
+      parroquiaSelect.innerHTML = parroquiasPorCiudad[selectedCity]
+        .map(p => `<option value="${p}">${p}</option>`)
+        .join('');
+    } else {
+      parroquiaSelect.innerHTML = '<option value="">Selecciona primero una ciudad</option>';
+    }
+  };
+
+  window.sendOrderViaWhatsApp = () => {
+    const city = document.getElementById('city-select').value;
+    const parroquia = document.getElementById('parroquia-select').value;
+    const address = document.getElementById('address-input').value;
+    const phone = document.getElementById('phone-input').value;
+
+    if (!city || !parroquia || !address || !phone) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    const user = getCurrentUser();
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+    // Generar mensaje
+    let message = `¡Hola! Soy ${user ? user.name : 'Cliente'}, Me interesa hacer un pedido desde tu tienda online:\n\n`;
+    message += `*PRODUCTOS SELECCIONADOS:*\n`;
+    
+    cart.forEach((item, index) => {
+      message += `${index + 1}. *${item.name}*\n`;
+      message += `    Cantidad: ${item.quantity || 1}\n`;
+      message += `    Precio: $${item.price.toFixed(2)}\n\n`;
+    });
+
+    message += `*TOTAL: $${total.toFixed(2)}*\n\n`;
+    message += `📍 *INFORMACIÓN DE ENTREGA:*\n`;
+    message += `📍 Ciudad: ${city.charAt(0).toUpperCase() + city.slice(1).replace('-', ' ')}\n`;
+    message += `📍 Zona: ${parroquia}\n`;
+    message += `📍 Teléfono: ${phone}\n`;
+    message += `📍 Dirección: ${address}\n\n`;
+    message += `¿Podrías confirmarme la disponibilidad de los productos y los métodos de pago disponibles? 🙏\n\n`;
+    message += `Prefiero coordinar el pago y entrega directamente contigo. ¡Gracias! 😊`;
+
+    // Codificar para URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/593962873167?text=${encodedMessage}`;
+
+    // Guardar info de entrega temporalmente en sessionStorage para cuando confirme en WhatsApp
+    sessionStorage.setItem('pendingOrder', JSON.stringify({
+      city: city,
+      parroquia: parroquia,
+      address: address,
+      phone: phone
+    }));
+
+    // Abrir WhatsApp directamente
+    window.open(whatsappUrl, '_blank');
+    
+    // Cerrar modal después de enviar a WhatsApp
+    document.getElementById('checkout-modal').classList.add('hidden');
+  };
+
+  window.processPayment = () => {
+    const city = document.getElementById('city-select').value;
+    const parroquia = document.getElementById('parroquia-select').value;
+    const address = document.getElementById('address-input').value;
+    const phone = document.getElementById('phone-input').value;
+
+    if (!city || !parroquia || !address || !phone) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    processPaymentAndCreateOrder(city, parroquia, address, phone);
+  };
+
+  function processPaymentAndCreateOrder(city, parroquia, address, phone) {
+    const user = getCurrentUser();
+    const cart = CartManager.getCart();
+    const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+    // Simular pago
+    const paymentId = 'DEMO-' + Date.now();
+    alert(`✅ Pago ficticio procesado\nID de transacción: ${paymentId}\nTotal: $${total.toFixed(2)}`);
+
+    // Crear orden
+    const order = {
+      id: 'ORD-' + Date.now(),
+      userId: user ? user.id : null,
+      items: cart,
+      total: total,
+      city: city,
+      parroquia: parroquia,
+      address: address,
+      phone: phone,
+      paymentId: paymentId,
+      status: 'pending',
+      date: new Date().toISOString()
+    };
+
+    // Guardar orden
+    const orders = JSON.parse(localStorage.getItem('tecno_orders') || '[]');
+    orders.push(order);
+    localStorage.setItem('tecno_orders', JSON.stringify(orders));
+
+    // Reducir stock (demostración)
+    const products = JSON.parse(localStorage.getItem('tecno_products') || '[]');
+    cart.forEach(cartItem => {
+      const product = products.find(p => p.id === cartItem.id);
+      if (product) {
+        product.stock = Math.max(0, (product.stock || 0) - (cartItem.quantity || 1));
+      }
+    });
+    localStorage.setItem('tecno_products', JSON.stringify(products));
+
+    // Limpiar carrito
+    CartManager.clearCart();
+
+    // Cerrar modal
+    document.getElementById('checkout-modal').classList.add('hidden');
+
+    alert(`✅ Pedido creado exitosamente!\nID de Orden: ${order.id}\n\nEnviando información a WhatsApp...`);
+  }
+
+  // Actualizar auth UI
+  function updateAuthUI() {
+    const user = getCurrentUser();
+    const container = document.getElementById('auth-container');
+    
+    if (user) {
+      container.innerHTML = `
+        <div class="relative group">
+          <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10">
+            <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold">
+              ${user.avatar}
+            </div>
+          </button>
+          <div class="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl hidden group-hover:block z-50">
+            <div class="px-4 py-3 border-b border-slate-200 dark:border-white/10">
+              <p class="text-sm font-medium">${user.name}</p>
+              <p class="text-xs text-slate-500">${user.email}</p>
+            </div>
+            <a href="${user.type === 'admin' ? '../admin_dashboard/adminDashboard.html' : '../customer_dashboard/clientDashboard.html'}" class="flex items-center px-4 py-3 text-sm hover:bg-slate-100 dark:hover:bg-slate-800 border-b">
+              <span class="material-icons-round mr-2 text-lg">dashboard</span> Dashboard
+            </a>
+            <button onclick="window.logout()" class="w-full text-left flex items-center px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20">
+              <span class="material-icons-round mr-2 text-lg">logout</span> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `
+        <div class="flex items-center gap-2 hidden lg:flex">
+          <a href="../login_and_registration/login.html" class="px-4 py-2 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+            Iniciar Sesión
+          </a>
+          <a href="../login_and_registration/login.html" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
+            Registrarse
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  window.logout = () => {
+    logoutUser();
+    location.reload();
+  };
+
+  // Inicializar
+  updateAuthUI();
+  renderCart();
+</script>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 dark:bg-black text-white mt-20 border-t border-slate-800">
+  <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
+    <!-- Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <h3 class="text-2xl font-bold mb-4">TECNO THINGS</h3>
+        <p class="text-slate-400 mb-6">Tienda autorizada / Pc Gamer / Streaming</p>
+        <div class="flex gap-4">
+          <a href="https://www.instagram.com/tecnothings_ec/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">camera_alt</span>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">language</span>
+          </a>
+          <a href="mailto:info@techthings.com" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
+            <span class="material-icons-round text-lg">mail</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Productos</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Periféricos</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Monitores</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Hardware</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Laptops</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Ofertas</a></li>
+        </ul>
+      </div>
+
+      <!-- Información -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Información</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Sobre nosotros</a></li>
+          <li><a href="./blogs.html" class="text-slate-400 hover:text-white transition-colors">Blog</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Política de privacidad</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Términos de servicio</a></li>
+          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Contacto</h4>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">location_on</span>
+            <span class="text-slate-400">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">phone</span>
+            <span class="text-slate-400">+593 96 287 3167</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">mail</span>
+            <span class="text-slate-400">info@techthings.com</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1">schedule</span>
+            <span class="text-slate-400">Lun-Vie: 9AM-6PM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-slate-800 pt-8 mb-8"></div>
+
+    <!-- Footer Bottom -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-slate-400 text-sm">© 2026 Tecno Things. Todos los derechos reservados.</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Política de Cookies</a>
+        <span class="text-slate-600">|</span>
+        <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Preferencias</a>
+      </div>
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+        Volver arriba <span class="material-icons-round">arrow_upward</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

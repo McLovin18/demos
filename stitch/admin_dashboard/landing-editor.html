@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Editor de Secciones - Admin | Tecno Things</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            accent: "#3b82f6"
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-40 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="../admin_dashboard/adminDashboard.html" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">
+        <span class="material-icons-round">arrow_back</span>
+      </a>
+      <h1 class="text-2xl font-bold">Editor de Secciones</h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="save-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2">
+        <span class="material-icons-round">save</span> Guardar
+      </button>
+      <button id="reset-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2">
+        <span class="material-icons-round">refresh</span> Resetear
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="p-6 max-w-7xl mx-auto">
+  <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+    <p class="text-sm text-blue-800 dark:text-blue-300">
+      <strong>Nota:</strong> Aquí puedes editar todas las secciones de la landing page. Los cambios se guardan en tiempo real en el navegador.
+    </p>
+  </div>
+
+  <!-- Sections Container -->
+  <div id="sections-container" class="space-y-6">
+    <!-- Se llena dinámicamente -->
+  </div>
+
+  <!-- Add New Section -->
+  <div class="mt-8 p-6 bg-white dark:bg-slate-800 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 text-center">
+    <button id="add-section-btn" class="flex items-center gap-2 mx-auto px-4 py-2 bg-accent text-white rounded-lg hover:bg-blue-600">
+      <span class="material-icons-round">add</span> Agregar Nueva Sección
+    </button>
+  </div>
+</main>
+
+<!-- Modal de Agregar Sección -->
+<div id="add-section-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-slate-800 rounded-lg max-w-md w-full p-6 max-h-96 overflow-y-auto">
+    <h2 class="text-xl font-bold mb-4">Selecciona el tipo de sección</h2>
+    <div class="space-y-2">
+      <button onclick="createNewSection('hero')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">image</span> Hero (Imagen + Texto)
+      </button>
+      <button onclick="createNewSection('text-image')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">article</span> Texto + Imagen (Lado a Lado)
+      </button>
+      <button onclick="createNewSection('image-text')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">image</span> Imagen + Texto (Lado a Lado)
+      </button>
+      <button onclick="createNewSection('banner')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">format_color_fill</span> Banner (Imagen de Fondo)
+      </button>
+      <button onclick="createNewSection('gallery')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">collections</span> Galería de Imágenes (Carrusel)
+      </button>
+      <button onclick="createNewSection('categories')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">category</span> Categorías
+      </button>
+      <button onclick="createNewSection('featured-products')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">shopping_bag</span> Productos Destacados
+      </button>
+      <button onclick="createNewSection('newsletter')" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2">
+        <span class="material-icons-round">mail</span> Newsletter
+      </button>
+      <button onclick="closeAddModal()" class="w-full p-3 text-left border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="../landing-sections.js"></script>
+<script>
+  let sections = [];
+
+  // Cargar secciones al iniciar
+  function loadSections() {
+    sections = SectionsManager.getSections();
+    renderSections();
+  }
+
+  // Renderizar todas las secciones
+  function renderSections() {
+    const container = document.getElementById('sections-container');
+    container.innerHTML = '';
+
+    sections.forEach((section, index) => {
+      const sectionHTML = createSectionEditor(section, index);
+      container.appendChild(sectionHTML);
+    });
+  }
+
+  // Crear editor para una sección
+  function createSectionEditor(section, index) {
+    const div = document.createElement('div');
+    div.className = 'bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6';
+    div.id = `section-${section.id}`;
+
+    let content = `
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-lg font-bold">${section.type.toUpperCase()}</h3>
+          <p class="text-sm text-slate-500">ID: ${section.id}</p>
+        </div>
+        <div class="flex items-center gap-2">
+          ${index > 0 ? `<button onclick="moveSection('${section.id}', -1)" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Subir">
+            <span class="material-icons-round">arrow_upward</span>
+          </button>` : ''}
+          ${index < sections.length - 1 ? `<button onclick="moveSection('${section.id}', 1)" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Bajar">
+            <span class="material-icons-round">arrow_downward</span>
+          </button>` : ''}
+          <button onclick="addSectionAfter('${section.id}')" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Agregar después">
+            <span class="material-icons-round">add_circle</span>
+          </button>
+          <button onclick="deleteSection('${section.id}')" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 rounded" title="Eliminar">
+            <span class="material-icons-round">delete</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+    `;
+
+    if (section.type === 'hero') {
+      content += `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm font-medium">Título Principal</label>
+              <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+            </div>
+            <input type="text" value="${section.title}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm font-medium">Texto del Badge</label>
+              <button onclick="clearField('${section.id}', 'badge')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+            </div>
+            <input type="text" value="${section.badge}" oninput="updateSection('${section.id}', 'badge', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Subtítulo</label>
+            <button onclick="clearField('${section.id}', 'subtitle')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <textarea oninput="updateSection('${section.id}', 'subtitle', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 h-24">${section.subtitle}</textarea>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-medium">Imagen de Hero</label>
+            ${section.imageUrl ? `<button onclick="clearField('${section.id}', 'imageUrl')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Eliminar Imagen</button>` : ''}
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="file" id="img-${section.id}" accept="image/*" onchange="uploadImage('${section.id}', this)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-sm">
+              <p class="text-xs text-slate-500 mt-1">O pega una URL:</p>
+              <input type="text" value="${section.imageUrl}" oninput="updateSection('${section.id}', 'imageUrl', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-xs mt-1" placeholder="https://...">
+            </div>
+            ${section.imageUrl ? `<img src="${section.imageUrl}" alt="Preview" class="w-24 h-24 object-cover rounded-lg border border-slate-200">` : '<div class="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center"><span class="material-icons-round text-slate-400">image</span></div>'}
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm font-medium">Texto del Botón</label>
+              <button onclick="clearField('${section.id}', 'buttonText')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+            </div>
+            <input type="text" value="${section.buttonText}" oninput="updateSection('${section.id}', 'buttonText', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm font-medium">Link del Botón</label>
+              <button onclick="clearField('${section.id}', 'buttonLink')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+            </div>
+            <input type="text" value="${section.buttonLink}" oninput="updateSection('${section.id}', 'buttonLink', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+          </div>
+        </div>
+      `;
+    } else if (section.type === 'text-image') {
+      content += `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Título</label>
+            <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.title || ''}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Contenido</label>
+            <button onclick="clearField('${section.id}', 'content')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <textarea oninput="updateSection('${section.id}', 'content', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 h-24">${section.content || ''}</textarea>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-medium">Imagen</label>
+            ${section.imageUrl ? `<button onclick="clearField('${section.id}', 'imageUrl')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Eliminar Imagen</button>` : ''}
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="file" id="img-${section.id}" accept="image/*" onchange="uploadImage('${section.id}', this)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-sm">
+              <input type="text" value="${section.imageUrl || ''}" oninput="updateSection('${section.id}', 'imageUrl', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-xs mt-1" placeholder="https://...">
+            </div>
+            ${section.imageUrl ? `<img src="${section.imageUrl}" alt="Preview" class="w-24 h-24 object-cover rounded-lg border border-slate-200">` : '<div class="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center"><span class="material-icons-round text-slate-400">image</span></div>'}
+          </div>
+        </div>
+      `;
+    } else if (section.type === 'image-text') {
+      content += `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Título</label>
+            <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.title || ''}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Contenido</label>
+            <button onclick="clearField('${section.id}', 'content')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <textarea oninput="updateSection('${section.id}', 'content', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 h-24">${section.content || ''}</textarea>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-medium">Imagen</label>
+            ${section.imageUrl ? `<button onclick="clearField('${section.id}', 'imageUrl')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Eliminar Imagen</button>` : ''}
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="file" id="img-${section.id}" accept="image/*" onchange="uploadImage('${section.id}', this)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-sm">
+              <input type="text" value="${section.imageUrl || ''}" oninput="updateSection('${section.id}', 'imageUrl', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-xs mt-1" placeholder="https://...">
+            </div>
+            ${section.imageUrl ? `<img src="${section.imageUrl}" alt="Preview" class="w-24 h-24 object-cover rounded-lg border border-slate-200">` : '<div class="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center"><span class="material-icons-round text-slate-400">image</span></div>'}
+          </div>
+        </div>
+      `;
+    } else if (section.type === 'banner') {
+      content += `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Título</label>
+            <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.title || ''}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Subtítulo</label>
+            <button onclick="clearField('${section.id}', 'subtitle')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <textarea oninput="updateSection('${section.id}', 'subtitle', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 h-20">${section.subtitle || ''}</textarea>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-medium">Imagen de Fondo</label>
+            ${section.backgroundImage ? `<button onclick="clearField('${section.id}', 'backgroundImage')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Eliminar Imagen</button>` : ''}
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="file" id="img-${section.id}" accept="image/*" onchange="uploadImage('${section.id}', this)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-sm">
+              <input type="text" value="${section.backgroundImage || ''}" oninput="updateSection('${section.id}', 'backgroundImage', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 text-xs mt-1" placeholder="https://...">
+            </div>
+            ${section.backgroundImage ? `<img src="${section.backgroundImage}" alt="Preview" class="w-24 h-24 object-cover rounded-lg border border-slate-200">` : '<div class="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center"><span class="material-icons-round text-slate-400">image</span></div>'}
+          </div>
+        </div>
+      `;
+    } else if (section.type === 'gallery') {
+      content += `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Título de la Galería</label>
+            <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.title || ''}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+          <div class="flex items-center justify-between mb-3">
+            <label class="block text-sm font-medium">Imágenes de la Galería</label>
+            <button onclick="addImageToGallery('${section.id}')" class="text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">+ Agregar Imagen</button>
+          </div>
+          
+          <div class="space-y-3 max-h-96 overflow-y-auto">
+            ${(section.images || []).map((img, idx) => `
+              <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 bg-slate-50 dark:bg-slate-700/50">
+                <div class="flex gap-3 mb-2">
+                  <img src="${img.url}" alt="Galería ${idx + 1}" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  <div class="flex-1">
+                    <input type="text" value="${img.caption || ''}" oninput="updateGalleryImage('${section.id}', ${idx}, 'caption', this.value)" placeholder="Texto/Título" class="w-full px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm dark:bg-slate-700 mb-2">
+                    <input type="file" accept="image/*" onchange="uploadGalleryImage('${section.id}', ${idx}, this)" class="w-full px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs dark:bg-slate-700">
+                  </div>
+                  <button onclick="removeGalleryImage('${section.id}', ${idx})" class="text-red-500 hover:text-red-700 p-1" title="Eliminar">
+                    <span class="material-icons-round text-lg">delete</span>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (section.type === 'categories') {
+      content += `
+        <div>
+          <label class="block text-sm font-medium mb-1">Título de la Sección</label>
+          <input type="text" value="${section.title}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <p class="text-sm text-slate-500">Las categorías se heredan del sistema actual. Para editarlas, accede a categories.js</p>
+      `;
+    } else if (section.type === 'featured-products') {
+      content += `
+        <div>
+          <label class="block text-sm font-medium mb-1">Título de la Sección</label>
+          <input type="text" value="${section.title}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <p class="text-sm text-slate-500">Los productos destacados se heredan del sistema actual. Para editarlos, accede a products.js</p>
+      `;
+    } else if (section.type === 'newsletter') {
+      content += `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Título</label>
+            <button onclick="clearField('${section.id}', 'title')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.title}" oninput="updateSection('${section.id}', 'title', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Subtítulo</label>
+            <button onclick="clearField('${section.id}', 'subtitle')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <textarea oninput="updateSection('${section.id}', 'subtitle', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700 h-20">${section.subtitle}</textarea>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Placeholder del Email</label>
+            <button onclick="clearField('${section.id}', 'placeholderEmail')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.placeholderEmail}" oninput="updateSection('${section.id}', 'placeholderEmail', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium">Texto del Botón</label>
+            <button onclick="clearField('${section.id}', 'buttonText')" class="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Limpiar</button>
+          </div>
+          <input type="text" value="${section.buttonText}" oninput="updateSection('${section.id}', 'buttonText', this.value)" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-700">
+        </div>
+      `;
+    }
+
+    content += `</div>`;
+
+    div.innerHTML = content;
+    return div;
+  }
+
+  // Actualizar una sección
+  window.updateSection = (id, field, value) => {
+    const section = sections.find(s => s.id === id);
+    if (section) {
+      section[field] = value;
+      // Guardar inmediatamente en localStorage
+      SectionsManager.saveSections(sections);
+      console.log(`✓ Cambio guardado: ${id}.${field} = ${value}`);
+    }
+  };
+
+  // Limpiar/eliminar un campo específico
+  window.clearField = (id, field) => {
+    const section = sections.find(s => s.id === id);
+    if (section) {
+      section[field] = '';
+      SectionsManager.saveSections(sections);
+      renderSections();
+      console.log(`✓ Campo limpiado: ${id}.${field}`);
+    }
+  };
+
+  // Mover sección arriba o abajo
+  window.moveSection = (id, direction) => {
+    const index = sections.findIndex(s => s.id === id);
+    if (direction === -1 && index > 0) {
+      // Mover arriba
+      const temp = sections[index].order;
+      sections[index].order = sections[index - 1].order;
+      sections[index - 1].order = temp;
+      sections.sort((a, b) => a.order - b.order);
+    } else if (direction === 1 && index < sections.length - 1) {
+      // Mover abajo
+      const temp = sections[index].order;
+      sections[index].order = sections[index + 1].order;
+      sections[index + 1].order = temp;
+      sections.sort((a, b) => a.order - b.order);
+    }
+    // Guardar inmediatamente
+    SectionsManager.saveSections(sections);
+    renderSections();
+  };
+
+  // Agregar sección después de otra
+  window.addSectionAfter = (id) => {
+    const index = sections.findIndex(s => s.id === id);
+    document.getElementById('current-index-for-add').value = index + 1;
+    document.getElementById('add-section-modal').classList.remove('hidden');
+  };
+
+  window.deleteSection = (id) => {
+    if (confirm('¿Estás seguro de que deseas eliminar esta sección?')) {
+      sections = sections.filter(s => s.id !== id);
+      // Guardar inmediatamente
+      SectionsManager.saveSections(sections);
+      renderSections();
+    }
+  };
+
+  window.addSectionAfter = (id) => {
+    const index = sections.findIndex(s => s.id === id);
+    window.currentIndexForAdd = index + 1;
+    document.getElementById('add-section-modal').classList.remove('hidden');
+  };
+
+  window.createNewSection = (type) => {
+    const newSection = {
+      id: `section-${Date.now()}`,
+      type: type,
+      order: sections.length + 1
+    };
+
+    if (type === 'hero') {
+      newSection.title = 'Nuevo Título';
+      newSection.subtitle = 'Nuevo subtítulo';
+      newSection.imageUrl = 'https://via.placeholder.com/1600x900';
+      newSection.badge = 'Nuevo';
+      newSection.buttonText = 'Botón';
+      newSection.buttonLink = '#';
+    } else if (type === 'text-image') {
+      newSection.title = 'Título';
+      newSection.content = 'Contenido del texto aquí';
+      newSection.imageUrl = 'https://via.placeholder.com/400x300';
+    } else if (type === 'image-text') {
+      newSection.title = 'Título';
+      newSection.content = 'Contenido del texto aquí';
+      newSection.imageUrl = 'https://via.placeholder.com/400x300';
+    } else if (type === 'banner') {
+      newSection.title = 'Título del Banner';
+      newSection.subtitle = 'Subtítulo sobre la imagen';
+      newSection.backgroundImage = 'https://via.placeholder.com/1600x600';
+    } else if (type === 'gallery') {
+      newSection.title = 'Mi Galería';
+      newSection.images = [
+        { id: 1, url: 'https://via.placeholder.com/300x200?text=Imagen+1', caption: 'Imagen 1' },
+        { id: 2, url: 'https://via.placeholder.com/300x200?text=Imagen+2', caption: 'Imagen 2' },
+        { id: 3, url: 'https://via.placeholder.com/300x200?text=Imagen+3', caption: 'Imagen 3' },
+        { id: 4, url: 'https://via.placeholder.com/300x200?text=Imagen+4', caption: 'Imagen 4' }
+      ];
+    } else if (type === 'gallery') {
+      newSection.title = 'Mi Galería';
+      newSection.maxImages = 10; // Límite máximo
+      newSection.images = [
+        { id: 1, url: 'https://via.placeholder.com/300x200?text=Imagen+1', caption: 'Imagen 1' },
+        { id: 2, url: 'https://via.placeholder.com/300x200?text=Imagen+2', caption: 'Imagen 2' },
+        { id: 3, url: 'https://via.placeholder.com/300x200?text=Imagen+3', caption: 'Imagen 3' },
+        { id: 4, url: 'https://via.placeholder.com/300x200?text=Imagen+4', caption: 'Imagen 4' }
+      ];
+    } else if (type === 'categories') {
+      newSection.title = 'Categorías';
+      newSection.categories = [];
+    } else if (type === 'featured-products') {
+      newSection.title = 'Productos Destacados';
+      newSection.products = [];
+    } else if (type === 'newsletter') {
+      newSection.title = 'Newsletter';
+      newSection.subtitle = 'Suscríbete para recibir ofertas';
+      newSection.placeholderEmail = 'Tu email';
+      newSection.buttonText = 'Enviar';
+    }
+
+    sections.splice(window.currentIndexForAdd || sections.length, 0, newSection);
+    // Guardar inmediatamente
+    SectionsManager.saveSections(sections);
+    document.getElementById('add-section-modal').classList.add('hidden');
+    renderSections();
+  };
+
+  // Subir imagen y convertir a base64
+  window.uploadImage = (sectionId, fileInput) => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageData = event.target.result; // Base64
+      const section = sections.find(s => s.id === sectionId);
+      
+      if (section) {
+        // Determinar qué campo de imagen usar según el tipo
+        if (section.type === 'banner') {
+          updateSection(sectionId, 'backgroundImage', imageData);
+        } else {
+          updateSection(sectionId, 'imageUrl', imageData);
+        }
+        
+        // Volver a renderizar para mostrar preview
+        renderSections();
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Agregar imagen a la galería
+  window.addImageToGallery = (sectionId) => {
+    const section = sections.find(s => s.id === sectionId);
+    if (section && section.type === 'gallery') {
+      if (!section.images) section.images = [];
+      
+      // Validar máximo de imágenes (10)
+      if (section.images.length >= 10) {
+        alert('⚠️ Límite máximo de 10 imágenes alcanzado');
+        return;
+      }
+      
+      const newImage = {
+        id: section.images.length + 1,
+        url: 'https://via.placeholder.com/300x200',
+        caption: `Imagen ${section.images.length + 1}`
+      };
+      section.images.push(newImage);
+      SectionsManager.saveSections(sections);
+      renderSections();
+    }
+  };
+
+  // Actualizar imagen en la galería
+  window.updateGalleryImage = (sectionId, imageIndex, field, value) => {
+    const section = sections.find(s => s.id === sectionId);
+    if (section && section.images && section.images[imageIndex]) {
+      section.images[imageIndex][field] = value;
+      SectionsManager.saveSections(sections);
+    }
+  };
+
+  // Subir imagen a la galería
+  window.uploadGalleryImage = (sectionId, imageIndex, fileInput) => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageData = event.target.result;
+      const section = sections.find(s => s.id === sectionId);
+      
+      if (section && section.images && section.images[imageIndex]) {
+        section.images[imageIndex].url = imageData;
+        SectionsManager.saveSections(sections);
+        renderSections();
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Eliminar imagen de la galería
+  window.removeGalleryImage = (sectionId, imageIndex) => {
+    const section = sections.find(s => s.id === sectionId);
+    if (section && section.images) {
+      section.images.splice(imageIndex, 1);
+      SectionsManager.saveSections(sections);
+      renderSections();
+    }
+  };
+
+  window.closeAddModal = () => {
+    document.getElementById('add-section-modal').classList.add('hidden');
+  };
+
+  // Guardar cambios
+  document.getElementById('save-btn').addEventListener('click', () => {
+    SectionsManager.saveSections(sections);
+    // Disparar evento personalizado para que se actualice la landing page
+    if (window.opener) {
+      window.opener.dispatchEvent(new Event('localStorageChanged'));
+    }
+    alert('✓ Secciones guardadas correctamente');
+  });
+
+  // Resetear a valores por defecto
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (confirm('¿Estás seguro? Esto restaurará todas las secciones a los valores por defecto.')) {
+      sections = SectionsManager.resetToDefault();
+      renderSections();
+      alert('✓ Secciones restauradas a valores por defecto');
+    }
+  });
+
+  // Agregar nueva sección
+  document.getElementById('add-section-btn').addEventListener('click', () => {
+    window.currentIndexForAdd = sections.length;
+    document.getElementById('add-section-modal').classList.remove('hidden');
+  });
+
+  // Cargar al iniciar
+  loadSections();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sincronización Landing Page - Debug</title>
+  <style>
+    body { font-family: Arial; max-width: 1200px; margin: auto; padding: 20px; background: #f5f5f5; }
+    h1 { color: #333; }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .panel { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .panel h2 { border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
+    button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px 0; }
+    button:hover { background: #2563eb; }
+    .log { background: #f0f0f0; padding: 10px; margin: 5px 0; border-left: 4px solid #3b82f6; font-size: 12px; font-family: monospace; max-height: 400px; overflow-y: auto; }
+    .success { border-left-color: #10b981; color: #059669; }
+    .error { border-left-color: #ef4444; color: #dc2626; }
+    input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+    textarea { width: 100%; height: 200px; padding: 8px; font-family: monospace; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Debug: Sincronización Landing Page</h1>
+  
+  <div class="container">
+    <div class="panel">
+      <h2>📝 Editor de Datos</h2>
+      <label>Cambiar Hero Title:</label>
+      <input type="text" id="new-title" placeholder="Escribe un nuevo título" value="Potencia sin límites.">
+      <button onclick="updateHeroTitle()">Guardar Cambio</button>
+      
+      <label>Cambiar Hero Subtitle:</label>
+      <input type="text" id="new-subtitle" placeholder="Nuevo subtítulo" value="Descubre la nueva generación de portátiles para profesionales.">
+      <button onclick="updateHeroSubtitle()">Guardar Cambio</button>
+
+      <label>Cambiar Hero Image URL:</label>
+      <input type="text" id="new-image" placeholder="URL de imagen" style="font-size: 11px;">
+      <button onclick="updateHeroImage()">Guardar Cambio</button>
+
+      <button onclick="showCurrentData()" style="background: #10b981; margin-top: 10px;">Ver Datos Actuales</button>
+      <button onclick="clearStorage()" style="background: #ef4444;">Resetear Todo</button>
+
+      <div class="log" id="editor-log"></div>
+    </div>
+
+    <div class="panel">
+      <h2>👀 Monitor en Vivo</h2>
+      <p>Los cambios deberían aparecer aquí automáticamente:</p>
+      
+      <div style="border: 2px solid #3b82f6; padding: 15px; border-radius: 4px; background: #f0f7ff;">
+        <h3 id="live-title">Título: (cargando...)</h3>
+        <p id="live-subtitle">Subtítulo: (cargando...)</p>
+        <p id="live-image" style="font-size: 12px; color: #666;">Imagen: (cargando...)</p>
+      </div>
+
+      <button onclick="startMonitoring()" style="background: #10b981; margin-top: 10px;">Iniciar Monitor</button>
+      <button onclick="stopMonitoring()" style="background: #ef4444;">Detener Monitor</button>
+
+      <div class="log" id="monitor-log"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="grid-column: 1 / -1; margin-top: 20px;">
+    <h2>📊 Estado de LocalStorage</h2>
+    <button onclick="showStorageData()">Ver LocalStorage Completo</button>
+    <textarea id="storage-data" readonly></textarea>
+  </div>
+
+  <script type="module">
+    import { SectionsManager } from '../landing-sections.js';
+
+    let monitorActive = false;
+
+    function log(msg, type = 'info') {
+      const timestamp = new Date().toLocaleTimeString();
+      console.log(`[${timestamp}] ${msg}`);
+      
+      const logDiv = document.getElementById('editor-log');
+      const entry = document.createElement('div');
+      entry.className = `log ${type === 'error' ? 'error' : type === 'success' ? 'success' : ''}`;
+      entry.textContent = `[${timestamp}] ${msg}`;
+      logDiv.insertBefore(entry, logDiv.firstChild);
+      
+      if (logDiv.children.length > 10) {
+        logDiv.removeChild(logDiv.lastChild);
+      }
+    }
+
+    function monitorLog(msg) {
+      const logDiv = document.getElementById('monitor-log');
+      const entry = document.createElement('div');
+      entry.className = 'log success';
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      logDiv.insertBefore(entry, logDiv.firstChild);
+      
+      if (logDiv.children.length > 10) {
+        logDiv.removeChild(logDiv.lastChild);
+      }
+    }
+
+    window.updateHeroTitle = () => {
+      const newTitle = document.getElementById('new-title').value;
+      try {
+        SectionsManager.updateSection('hero-section', { title: newTitle });
+        log(`✅ Título actualizado: "${newTitle}"`, 'success');
+        showCurrentData();
+      } catch (e) {
+        log(`❌ Error: ${e.message}`, 'error');
+      }
+    };
+
+    window.updateHeroSubtitle = () => {
+      const newSubtitle = document.getElementById('new-subtitle').value;
+      try {
+        SectionsManager.updateSection('hero-section', { subtitle: newSubtitle });
+        log(`✅ Subtítulo actualizado: "${newSubtitle}"`, 'success');
+        showCurrentData();
+      } catch (e) {
+        log(`❌ Error: ${e.message}`, 'error');
+      }
+    };
+
+    window.updateHeroImage = () => {
+      const newImage = document.getElementById('new-image').value;
+      if (!newImage) {
+        log('❌ Ingresa una URL de imagen', 'error');
+        return;
+      }
+      try {
+        SectionsManager.updateSection('hero-section', { imageUrl: newImage });
+        log(`✅ Imagen actualizada`, 'success');
+        showCurrentData();
+      } catch (e) {
+        log(`❌ Error: ${e.message}`, 'error');
+      }
+    };
+
+    window.showCurrentData = () => {
+      try {
+        const hero = SectionsManager.getSection('hero-section');
+        log('📦 Datos del Hero:', 'success');
+        log(`  Title: ${hero.title}`);
+        log(`  Subtitle: ${hero.subtitle}`);
+        log(`  Image: ${hero.imageUrl.substring(0, 50)}...`);
+      } catch (e) {
+        log(`❌ Error: ${e.message}`, 'error');
+      }
+    };
+
+    window.showStorageData = () => {
+      const data = localStorage.getItem('tecno_landing_sections');
+      const textarea = document.getElementById('storage-data');
+      if (data) {
+        try {
+          textarea.value = JSON.stringify(JSON.parse(data), null, 2);
+        } catch {
+          textarea.value = data;
+        }
+      } else {
+        textarea.value = '(sin datos en localStorage)';
+      }
+    };
+
+    window.clearStorage = () => {
+      if (confirm('¿Eliminar todos los datos guardados?')) {
+        SectionsManager.resetToDefault();
+        log('🔄 Datos reseteados a valores por defecto', 'success');
+        showCurrentData();
+        showStorageData();
+      }
+    };
+
+    window.startMonitoring = () => {
+      monitorActive = true;
+      let lastData = '';
+      
+      const monitor = setInterval(() => {
+        if (!monitorActive) {
+          clearInterval(monitor);
+          return;
+        }
+        
+        try {
+          const hero = SectionsManager.getSection('hero-section');
+          const currentData = JSON.stringify({
+            title: hero.title,
+            subtitle: hero.subtitle,
+            image: hero.imageUrl
+          });
+          
+          if (currentData !== lastData) {
+            lastData = currentData;
+            monitorLog(`📦 Hero actualizado: "${hero.title}"`);
+            
+            document.getElementById('live-title').textContent = `Título: ${hero.title}`;
+            document.getElementById('live-subtitle').textContent = `Subtítulo: ${hero.subtitle}`;
+            document.getElementById('live-image').textContent = `Imagen: ${hero.imageUrl.substring(0, 60)}...`;
+          }
+        } catch (e) {
+          monitorLog(`❌ Error en monitor: ${e.message}`);
+        }
+      }, 500);
+    };
+
+    window.stopMonitoring = () => {
+      monitorActive = false;
+    };
+
+    // Inicializar
+    showCurrentData();
+    showStorageData();
+    startMonitoring();
+  </script>
+</body>
+</html>
