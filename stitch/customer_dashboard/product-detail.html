@@ -453,10 +453,32 @@
   <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
     <!-- Footer Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-      <!-- Brand -->
+      <!-- Brand & Contact Info -->
       <div>
         <h3 class="text-2xl font-bold mb-4">TECNO THINGS</h3>
         <p class="text-slate-400 mb-6">Tienda autorizada / Pc Gamer / Streaming</p>
+        
+        <!-- Contact Information -->
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1 flex-shrink-0">location_on</span>
+            <span class="text-slate-400 text-sm">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">phone</span>
+            <span class="text-slate-400 text-sm">+593 96 287 3167</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">mail</span>
+            <span class="text-slate-400 text-sm">info@techthings.com</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">schedule</span>
+            <span class="text-slate-400 text-sm">Lun-Vie: 9AM-6PM</span>
+          </div>
+        </div>
+        
+        <!-- Social Links -->
         <div class="flex gap-4">
           <a href="https://www.instagram.com/tecnothings_ec/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
             <span class="material-icons-round text-lg">camera_alt</span>
@@ -474,11 +496,11 @@
       <div>
         <h4 class="text-lg font-semibold mb-6">Productos</h4>
         <ul class="space-y-3">
-          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Periféricos</a></li>
-          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Monitores</a></li>
-          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Hardware</a></li>
-          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Laptops</a></li>
-          <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Ofertas</a></li>
+          <li><a href="./products-by-category.html?category=perifericos" class="text-slate-400 hover:text-white transition-colors">Periféricos</a></li>
+          <li><a href="./products-by-category.html?category=monitores" class="text-slate-400 hover:text-white transition-colors">Monitores</a></li>
+          <li><a href="./products-by-category.html?category=hardware" class="text-slate-400 hover:text-white transition-colors">Hardware</a></li>
+          <li><a href="./products-by-category.html?category=laptops" class="text-slate-400 hover:text-white transition-colors">Laptops</a></li>
+          <li><a href="./products-by-category.html?category=ofertas" class="text-slate-400 hover:text-white transition-colors">Ofertas</a></li>
         </ul>
       </div>
 
@@ -494,27 +516,22 @@
         </ul>
       </div>
 
-      <!-- Contacto -->
+      <!-- Ubicación / Google Maps -->
       <div>
-        <h4 class="text-lg font-semibold mb-6">Contacto</h4>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">location_on</span>
-            <span class="text-slate-400">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">phone</span>
-            <span class="text-slate-400">+593 96 287 3167</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">mail</span>
-            <span class="text-slate-400">info@techthings.com</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">schedule</span>
-            <span class="text-slate-400">Lun-Vie: 9AM-6PM</span>
-          </li>
-        </ul>
+        <h4 class="text-lg font-semibold mb-6">Ubicación</h4>
+        <div class="rounded-lg overflow-hidden border border-slate-700 h-64 w-full">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.5779746282846!2d-79.9309434!3d-2.1294174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d733792952ed1:0x2fda88783fa806f2!2sTECNOTHINGS%20GYE!5e0!3m2!1ses!2sec!4v1707593400000" 
+            allowfullscreen="" 
+            aria-hidden="false" 
+            tabindex="0">
+          </iframe>
+        </div>
       </div>
     </div>
 

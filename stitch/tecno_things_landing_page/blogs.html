@@ -179,75 +179,20 @@
   </section>
 
   <!-- Blog Posts Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-    <!-- Post 1 -->
-    <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-      <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-        <span class="material-icons-round text-7xl text-white opacity-80">gaming</span>
-      </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-xs font-bold bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full">Gaming</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">10 Feb 2026</span>
-        </div>
-        <h2 class="text-xl font-bold mb-3">Guía Completa: Los Mejores Periféricos Gaming de 2026</h2>
-        <p class="text-slate-600 dark:text-slate-400 mb-4">Descubre cuáles son los periféricos gaming más solicitados del momento. Desde ratones ultraprecision hasta teclados mecánicos con switches personalizados...</p>
-        <a href="./blog-post-1.html" class="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
-          Leer más
-          <span class="material-icons-round text-lg">arrow_forward</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- Post 2 -->
-    <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-      <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
-        <span class="material-icons-round text-7xl text-white opacity-80">memory</span>
-      </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-xs font-bold bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full">Hardware</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">08 Feb 2026</span>
-        </div>
-        <h2 class="text-xl font-bold mb-3">RAM vs SSD: ¿Cuál es la Diferencia? Guía para Principiantes</h2>
-        <p class="text-slate-600 dark:text-slate-400 mb-4">Entendamos las diferencias fundamentales entre memoria RAM y almacenamiento SSD. Te explicamos por qué necesitas ambas y cómo elegir las correctas...</p>
-        <a href="./blog-post-2.html" class="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
-          Leer más
-          <span class="material-icons-round text-lg">arrow_forward</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- Post 3 -->
-    <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-      <div class="h-48 bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
-        <span class="material-icons-round text-7xl text-white opacity-80">display_settings</span>
-      </div>
-      <div class="p-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-xs font-bold bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 px-3 py-1 rounded-full">Monitores</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">05 Feb 2026</span>
-        </div>
-        <h2 class="text-xl font-bold mb-3">¿Qué Monitor Elegir? Resolución, Hz y Tamaño Explicado</h2>
-        <p class="text-slate-600 dark:text-slate-400 mb-4">Aprende a elegir el monitor perfecto para tu setup. Explicamos los términos técnicos como Hz, resolución 4K, IPS, VA y todo lo que necesitas saber...</p>
-        <a href="./blog-post-3.html" class="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
-          Leer más
-          <span class="material-icons-round text-lg">arrow_forward</span>
-        </a>
-      </div>
-    </article>
+  <div id="blogs-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+    <!-- Blogs cargados dinámicamente desde localStorage -->
   </div>
 
   <!-- Featured Post -->
-  <section class="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-900 dark:to-blue-950 rounded-2xl overflow-hidden shadow-2xl mb-16">
+  <section id="featured-post-section" class="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-900 dark:to-blue-950 rounded-2xl overflow-hidden shadow-2xl mb-16">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
       <div class="flex flex-col justify-center text-white">
         <div class="mb-4">
           <span class="text-xs font-bold bg-white/20 px-3 py-1 rounded-full inline-block">Artículo Destacado</span>
         </div>
-        <h2 class="text-4xl font-bold mb-4">Tendencias Tecnológicas en 2026</h2>
-        <p class="text-lg text-white/90 mb-6">Descubre las innovaciones más emocionantes que están transformando el mundo de la tecnología. Desde inteligencia artificial hasta periféricos revolucionarios, aquí tienes todo lo que necesitas saber.</p>
-        <a href="./blog-post-featured.html" class="inline-flex items-center gap-2 bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-slate-100 transition-colors w-fit">
+        <h2 id="featured-title" class="text-4xl font-bold mb-4">Cargando blog destacado...</h2>
+        <p id="featured-description" class="text-lg text-white/90 mb-6"></p>
+        <a id="featured-link" href="javascript:void(0)" class="inline-flex items-center gap-2 bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-slate-100 transition-colors w-fit">
           Leer artículo completo
           <span class="material-icons-round">arrow_forward</span>
         </a>
@@ -283,10 +228,32 @@
   <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
     <!-- Footer Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-      <!-- Brand -->
+      <!-- Brand & Contact Info -->
       <div>
         <h3 class="text-2xl font-bold mb-4">TECNO THINGS</h3>
         <p class="text-slate-400 mb-6">Tienda autorizada / Pc Gamer / Streaming</p>
+        
+        <!-- Contact Information -->
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1 flex-shrink-0">location_on</span>
+            <span class="text-slate-400 text-sm">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">phone</span>
+            <span class="text-slate-400 text-sm">+593 96 287 3167</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">mail</span>
+            <span class="text-slate-400 text-sm">info@techthings.com</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">schedule</span>
+            <span class="text-slate-400 text-sm">Lun-Vie: 9AM-6PM</span>
+          </div>
+        </div>
+
+        <!-- Social Links -->
         <div class="flex gap-4">
           <a href="https://www.instagram.com/tecnothings_ec/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
             <span class="material-icons-round text-lg">camera_alt</span>
@@ -324,27 +291,22 @@
         </ul>
       </div>
 
-      <!-- Contacto -->
+      <!-- Google Maps -->
       <div>
-        <h4 class="text-lg font-semibold mb-6">Contacto</h4>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">location_on</span>
-            <span class="text-slate-400">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">phone</span>
-            <span class="text-slate-400">+593 96 287 3167</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">mail</span>
-            <span class="text-slate-400">info@techthings.com</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">schedule</span>
-            <span class="text-slate-400">Lun-Vie: 9AM-6PM</span>
-          </li>
-        </ul>
+        <h4 class="text-lg font-semibold mb-6">Ubicación</h4>
+        <div class="rounded-lg overflow-hidden border border-slate-700 h-64 w-full">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.5779746282846!2d-79.9309434!3d-2.1294174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d733792952ed1:0x2fda88783fa806f2!2sTECNOTHINGS%20GYE!5e0!3m2!1ses!2sec!4v1707593400000" 
+            allowfullscreen="" 
+            aria-hidden="false" 
+            tabindex="0">
+          </iframe>
+        </div>
       </div>
     </div>
 
@@ -367,6 +329,83 @@
 </footer>
 
 <script>
+  // Color mapping para categorías
+  const categoryColorMap = {
+    'TECNOLOGÍA': { from: 'from-blue-500', to: 'to-blue-600', icon: 'devices', textColor: 'text-blue-700 dark:text-blue-300', bgColor: 'bg-blue-100 dark:bg-blue-900' },
+    'LAPTOPS': { from: 'from-purple-500', to: 'to-purple-600', icon: 'laptop', textColor: 'text-purple-700 dark:text-purple-300', bgColor: 'bg-purple-100 dark:bg-purple-900' },
+    'HARDWARE': { from: 'from-green-500', to: 'to-green-600', icon: 'memory', textColor: 'text-green-700 dark:text-green-300', bgColor: 'bg-green-100 dark:bg-green-900' },
+    'ALMACENAMIENTO': { from: 'from-orange-500', to: 'to-orange-600', icon: 'storage', textColor: 'text-orange-700 dark:text-orange-300', bgColor: 'bg-orange-100 dark:bg-orange-900' },
+    'PERIFÉRICOS': { from: 'from-red-500', to: 'to-red-600', icon: 'speed', textColor: 'text-red-700 dark:text-red-300', bgColor: 'bg-red-100 dark:bg-red-900' },
+    'MONITORES': { from: 'from-cyan-500', to: 'to-cyan-600', icon: 'monitor', textColor: 'text-cyan-700 dark:text-cyan-300', bgColor: 'bg-cyan-100 dark:bg-cyan-900' },
+    'ACCESORIOS': { from: 'from-pink-500', to: 'to-pink-600', icon: 'headphones', textColor: 'text-pink-700 dark:text-pink-300', bgColor: 'bg-pink-100 dark:bg-pink-900' },
+    'REDES': { from: 'from-indigo-500', to: 'to-indigo-600', icon: 'router', textColor: 'text-indigo-700 dark:text-indigo-300', bgColor: 'bg-indigo-100 dark:bg-indigo-900' }
+  };
+
+  // Cargar y renderizar blogs desde localStorage
+  function loadAndRenderBlogs() {
+    const container = document.getElementById('blogs-grid');
+    const blogsData = localStorage.getItem('tecno_blogs');
+    
+    let blogs = [];
+    if (blogsData) {
+      try {
+        blogs = JSON.parse(blogsData);
+      } catch (e) {
+        console.error('Error parsing blogs:', e);
+        blogs = [];
+      }
+    }
+
+    if (blogs.length === 0) {
+      container.innerHTML = '<p class="col-span-full text-center text-slate-500 dark:text-slate-400 py-12">No hay blogs disponibles en este momento.</p>';
+      return;
+    }
+
+    // Renderizar primeros 3 blogs
+    container.innerHTML = blogs.slice(0, 3).map(blog => {
+      const colors = categoryColorMap[blog.category] || categoryColorMap['TECNOLOGÍA'];
+      const shortDescription = blog.description.substring(0, 100) + (blog.description.length > 100 ? '...' : '');
+      
+      return `
+        <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer" onclick="window.location.href='../blog-detail.html?id=${blog.id}'">
+          <div class="h-48 bg-gradient-to-br ${colors.from} ${colors.to} flex items-center justify-center">
+            <span class="material-icons-round text-7xl text-white opacity-80">${colors.icon}</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-bold ${colors.textColor} ${colors.bgColor} px-3 py-1 rounded-full">${blog.category}</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400">${blog.date}</span>
+            </div>
+            <h2 class="text-xl font-bold mb-3">${blog.title}</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-4">${shortDescription}</p>
+            <a href="javascript:void(0)" class="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all" onclick="event.stopPropagation(); window.location.href='../blog-detail.html?id=${blog.id}'">
+              Leer más
+              <span class="material-icons-round text-lg">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Renderizar featured post (primer blog si hay)
+    if (blogs.length > 0) {
+      const featuredBlog = blogs[0];
+      document.getElementById('featured-title').textContent = featuredBlog.title;
+      document.getElementById('featured-description').textContent = featuredBlog.description;
+      document.getElementById('featured-link').href = `../blog-detail.html?id=${featuredBlog.id}`;
+    }
+  }
+
+  // Cargar blogs al cargar la página
+  document.addEventListener('DOMContentLoaded', loadAndRenderBlogs);
+
+  // Escuchar cambios en localStorage desde otras pestañas
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'tecno_blogs') {
+      loadAndRenderBlogs();
+    }
+  });
+
   // Theme Manager
   const themeManager = {
     getTheme() {

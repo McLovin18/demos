@@ -6,10 +6,20 @@ const DEFAULT_SECTIONS = [
     order: 1,
     title: "Potencia sin límites.",
     subtitle: "Descubre la nueva generación de portátiles para profesionales.",
-    imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAwKVIvCiZDlVX6BG4OB6RClXZy2TRd1vhZXWmJ8GQWkdA7i-eOfBxUfZAqhTHODtoQXyMETUPBrgOmazSUOZR-8FU6KywRsf6LLM1u9esA4gx4rp59COjKeu1ON768JwjEy7kCRVfsmTalD1o59dpeBgICKFgkfkPLn0rNgwRD5a0ajQkzTeswTcWfX7sDnm5gjj4KLtaMpAwBR0nhgW2eFJ6z3u_kTi2LAQdkReh3aVhMIi8ototRAzl38a19zriuoW2m79xwI1s",
     badge: "New Arrival",
     buttonText: "Comprar Ahora",
-    buttonLink: "../login_and_registration/login.html"
+    buttonLink: "../login_and_registration/login.html",
+    images: [
+      {
+        id: 1,
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAwKVIvCiZDlVX6BG4OB6RClXZy2TRd1vhZXWmJ8GQWkdA7i-eOfBxUfZAqhTHODtoQXyMETUPBrgOmazSUOZR-8FU6KywRsf6LLM1u9esA4gx4rp59COjKeu1ON768JwjEy7kCRVfsmTalD1o59dpeBgICKFgkfkPLn0rNgwRD5a0ajQkzTeswTcWfX7sDnm5gjj4KLtaMpAwBR0nhgW2eFJ6z3u_kTi2LAQdkReh3aVhMIi8ototRAzl38a19zriuoW2m79xwI1s",
+        title: "Laptops Pro",
+        description: "Última generación en tecnología",
+        badge: "New Arrival",
+        buttonText: "Comprar Ahora",
+        buttonLink: "../login_and_registration/login.html"
+      }
+    ]
   },
   {
     id: "categories-section",

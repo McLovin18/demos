@@ -64,6 +64,25 @@
         min-width: 100%;
       }
     }
+    
+    /* Products Carousel */
+    .products-carousel {
+      display: flex;
+      overflow: visible;
+      align-items: stretch;
+    }
+    .products-item {
+      flex: 0 0 25%;
+      box-sizing: border-box;
+      padding: 0 4px;
+      min-width: 25%;
+    }
+    @media (max-width: 767px) {
+      .products-item {
+        flex: 0 0 100%;
+        min-width: 100%;
+      }
+    }
   </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen pb-24 lg:pb-0">
@@ -340,115 +359,6 @@
       </div>
     </div>
   </section>
-    <div class="px-4 lg:px-6 mb-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">Categorías destacadas</h2>
-    </div>
-    <div class="flex gap-6 justify-center overflow-x-auto px-4 lg:px-6 no-scrollbar mb-12">
-      <div class="flex flex-col items-center gap-2">
-        <a href="./products-by-category.html?category=laptops&subcategory=laptops-budget" class="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-accent/10 dark:hover:bg-accent/10 transition-colors cursor-pointer">
-          <span class="material-icons-round text-5xl">laptop</span>
-        </a>
-        <span class="text-sm font-medium text-center">Laptops</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <a href="./products-by-category.html?category=monitores&subcategory=monitores-24" class="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-accent/10 dark:hover:bg-accent/10 transition-colors cursor-pointer">
-          <span class="material-icons-round text-5xl">desktop_mac</span>
-        </a>
-        <span class="text-sm font-medium text-center">Monitores</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <a href="./products-by-category.html?category=hardware&subcategory=procesadores" class="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-accent/10 dark:hover:bg-accent/10 transition-colors cursor-pointer">
-          <span class="material-icons-round text-5xl">build</span>
-        </a>
-        <span class="text-sm font-medium text-center">Hardware</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <a href="./products-by-category.html?category=perifericos&subcategory=mouses" class="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-accent/10 dark:hover:bg-accent/10 transition-colors cursor-pointer">
-          <span class="material-icons-round text-5xl">mouse</span>
-        </a>
-        <span class="text-sm font-medium text-center">Periféricos</span>
-      </div>
-      <div class="flex flex-col items-center gap-2">
-        <a href="./products-by-category.html?category=perifericos&subcategory=auriculares" class="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-accent/10 dark:hover:bg-accent/10 transition-colors cursor-pointer">
-          <span class="material-icons-round text-5xl">headphones</span>
-        </a>
-        <span class="text-xs font-medium text-center">Audio</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-4 lg:px-6">
-    <div class="mb-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">Productos Destacados</h2>
-    </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <a href="./product-detail.html?id=1" class="flex flex-col gap-3 group">
-        <div class="relative aspect-square rounded-2xl bg-slate-100 dark:bg-neutral-900 overflow-hidden flex items-center justify-center p-6">
-          <img alt="Premium Laptop" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAltLPCJnDaJsNE4iiU4J4oIsbi_MiEexIKJpKrPcDI_--D-UU8llOeQOuMvKWndLwHs3Vkq7qAoqTwwGEPOapr3sT3EQbbQd0FQtx2b9JPxT2qq89HY_10NxOVouGN0STI-mE-9gJd6JxPAhO_-4VSrHeFJtGG-E8KdjoJ84wqFOr6iwDSaceFhmgXdETgdpNG1SZneMpuryP3zLKJA_MnjfFxn37nQ1lQm43B64hbYZDo2DfvvfxZgZ8snQUW5QCh3A7WwPdcUEM"/>
-          <button class="absolute top-3 right-3 p-1.5 rounded-full glass-card">
-            <span class="material-icons-round text-sm">favorite_border</span>
-          </button>
-        </div>
-        <div>
-          <h4 class="font-semibold text-sm line-clamp-1">MacBook Pro M2</h4>
-          <p class="text-xs text-slate-500 mb-1">Tecnología de punta</p>
-          <p class="font-bold">$1,299.00</p>
-        </div>
-      </a>
-      <a href="./product-detail.html?id=2" class="flex flex-col gap-3 group">
-        <div class="relative aspect-square rounded-2xl bg-slate-100 dark:bg-neutral-900 overflow-hidden flex items-center justify-center p-6">
-          <img alt="Smartphone" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_ohKM8MNQufTcOA-wkwDeLS5aDAscJFYzHU7Azr4_72_h0CG89ig7NpCWuec4t7Y40cpNoA74DKgRgxvEg-DnuF2NLwAds37dmSL8oLjaFj7PJKFhlsY0cRjyhf2gvWcZNVCkSUjjpUT5B7QsumBJKix-RCIOJmno6rHkyfBy6yMS0mQnDy1gbd7GaORO9Vr_q_PHnnSrcuQYrIcX5p4OdiTgOuvudCdLRDm2V0kGZFAnDT8UCrY_PnMK6VgvVoM8eK3drPO0cVI"/>
-          <button class="absolute top-3 right-3 p-1.5 rounded-full glass-card text-accent">
-            <span class="material-icons-round text-sm">favorite</span>
-          </button>
-        </div>
-        <div>
-          <h4 class="font-semibold text-sm line-clamp-1">Smartphone Ultra</h4>
-          <p class="text-xs text-slate-500 mb-1">Cámara 108MP</p>
-          <p class="font-bold">$899.00</p>
-        </div>
-      </a>
-      <a href="./product-detail.html?id=3" class="flex flex-col gap-3 group">
-        <div class="relative aspect-square rounded-2xl bg-slate-100 dark:bg-neutral-900 overflow-hidden flex items-center justify-center p-6">
-          <img alt="Headphones" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD5D5rzlAO0kEX86lG8XZwqfbkOUOjGODmMk-0Xwp9u57I1whJ4iVHLQKcDrO0_UZx_mXrRVNZUU8uJwcLauoXzA1RINQJgess2nimBpU_OcCW22hp-qMYKXuLCoj6-AK3kFph5QvxTU4l7miJ0irDT0c6WGlunbd-hEPOoTfNaTfHZuHffMgXmyb_1ukGMziotxCTKCWt4W9fl5xAhnQgIh_oyXAqQPV53LBlZSnXVxwK-abFcAXLoXuPw0uNbpMZFukOrPXzqMA"/>
-          <button class="absolute top-3 right-3 p-1.5 rounded-full glass-card">
-            <span class="material-icons-round text-sm">favorite_border</span>
-          </button>
-        </div>
-        <div>
-          <h4 class="font-semibold text-sm line-clamp-1">Studio Headphones</h4>
-          <p class="text-xs text-slate-500 mb-1">Cancelación activa</p>
-          <p class="font-bold">$249.00</p>
-        </div>
-      </a>
-      <a href="./product-detail.html?id=4" class="flex flex-col gap-3 group">
-        <div class="relative aspect-square rounded-2xl bg-slate-100 dark:bg-neutral-900 overflow-hidden flex items-center justify-center p-6">
-          <img alt="Smartwatch" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgEBFbT6p2f1PB34nTzTLuwpOIpa-8pSX_marsAF6AXkspTIn3KvHjSBpi8s8IpkGaPra5OlSLgRNQcd13osda_gzmdSbJlcYAZLnNqYCBRZ8e2eO2yXNhOuatF1quDyly074wMihdTEOM5zoOpCNi6by0gf_8KGeyOkKxFUklsNyZN-27k_F2tgj3pStsQTWEvg2LizhCR0RqZhSQ4ZpGMZbfPwwHXUd_5fBa12R5a963a1QP_fIKCBnoUjSUXc2nKBGgQWSQB3o"/>
-          <button class="absolute top-3 right-3 p-1.5 rounded-full glass-card">
-            <span class="material-icons-round text-sm">favorite_border</span>
-          </button>
-        </div>
-        <div>
-          <h4 class="font-semibold text-sm line-clamp-1">Smartwatch Pro</h4>
-          <p class="text-xs text-slate-500 mb-1">Salud y Deporte</p>
-          <p class="font-bold">$399.00</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <section class="px-4 lg:px-6 py-12">
-    <div class="rounded-3xl p-8 glass-card border-none bg-accent/10 dark:bg-white/5">
-      <h3 id="newsletter-title" class="text-xl font-bold mb-2">Únete al club</h3>
-      <p id="newsletter-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mb-6">Recibe ofertas exclusivas y lanzamientos de nuevos gadgets antes que nadie.</p>
-      <div class="flex gap-2">
-        <input id="newsletter-email" class="flex-1 bg-white dark:bg-white/10 border-none rounded-xl px-4 text-sm focus:ring-2 focus:ring-accent" placeholder="Tu email" type="email"/>
-        <button class="bg-black dark:bg-white text-white dark:text-black p-3 rounded-xl">
-          <span class="material-icons-round text-xl">send</span>
-        </button>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- MOBILE BOTTOM NAV (only for authenticated users) -->
@@ -534,54 +444,146 @@ const themeManager = {
   function loadSectionsData() {
     try {
       const sections = SectionsManager.getSections();
-      console.log('🔄 Cargando secciones:', sections);
+      console.log('🔄 Cargando secciones (sin sort):', sections.map(s => `${s.type}:order=${s.order}`));
+      
+      // Ordenar por order
+      const sortedSections = sections.sort((a, b) => a.order - b.order);
+      console.log('✓ Secciones ordenadas:', sortedSections.map(s => `${s.type}:order=${s.order}`));
+      
+      // Limpiar todos los intervalos de carrusel del hero antes de recargar
+      Object.keys(heroCarouselIntervals).forEach(carouselId => {
+        clearInterval(heroCarouselIntervals[carouselId]);
+        console.log(`🛑 Intervalo limpiado para carousel: ${carouselId}`);
+      });
+      heroCarouselIntervals = {}; // Reinicializar objeto
+      
+      // Remover completamente el hero-section fijo del DOM
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection) {
+        heroSection.remove(); // ← REMOVER del DOM completamente
+        console.log('🗑️ Hero-section fijo removido del DOM');
+      }
       
       // Crear contenedor para secciones dinámicas si no existe
       let dynamicContainer = document.getElementById('dynamic-sections-container');
       if (!dynamicContainer) {
         // Buscar un lugar para insertar el contenedor
         const main = document.querySelector('main');
-        const newsletter = document.querySelector('section:has([id="newsletter-title"])');
         
         dynamicContainer = document.createElement('div');
         dynamicContainer.id = 'dynamic-sections-container';
         
-        if (newsletter) {
-          // Insertar antes del newsletter si existe
-          newsletter.insertAdjacentElement('beforebegin', dynamicContainer);
-          console.log('✓ Contenedor creado ANTES del newsletter');
-        } else if (main) {
-          // O al final del main si no existe newsletter
+        if (main) {
           main.appendChild(dynamicContainer);
-          console.log('✓ Contenedor creado al final del main');
+          console.log('✓ Contenedor dinámico creado en main');
         } else {
-          // O al final del body como último recurso
           document.body.appendChild(dynamicContainer);
-          console.log('✓ Contenedor creado al final del body');
+          console.log('✓ Contenedor dinámico creado en body');
         }
       } else {
         // Limpiar contenedor antes de recargar para evitar duplicados
         dynamicContainer.innerHTML = '';
-        console.log('✓ Contenedor limpiado');
+        console.log('✓ Contenedor dinámico limpiado');
       }
       
-      sections.forEach(section => {
+      // Procesar secciones en orden (incluyendo hero)
+      sortedSections.forEach((section, idx) => {
+        console.log(`📍 Renderizando sección ${idx + 1}/${sortedSections.length}: ${section.type} (order=${section.order})`);
         if (section.type === 'hero') {
-          const heroImage = document.getElementById('hero-image');
-          const heroBadge = document.getElementById('hero-badge');
-          const heroTitle = document.getElementById('hero-title');
-          const heroSubtitle = document.getElementById('hero-subtitle');
-          const heroButtonText = document.getElementById('hero-button-text');
-          const heroButton = document.getElementById('hero-button');
-
-          if (heroImage) heroImage.src = section.imageUrl;
-          if (heroBadge) heroBadge.textContent = section.badge;
-          if (heroTitle) heroTitle.textContent = section.title;
-          if (heroSubtitle) heroSubtitle.textContent = section.subtitle;
-          if (heroButtonText) heroButtonText.textContent = section.buttonText;
-          if (heroButton) heroButton.href = section.buttonLink;
-          
-          console.log('✓ Hero section actualizada');
+          // Si hay imágenes (array), renderizar como carrusel, si no, usar imageUrl (backwards compatible)
+          if (section.images && section.images.length > 0) {
+            // Renderizar como carrusel de múltiples imágenes
+            const heroCarouselId = `hero-carousel-${section.id}`;
+            const totalImages = section.images.length; // Número real de imágenes únicas
+            
+            // Crear suficientes items para carrusel continuo
+            let allItemsHtml = '';
+            const originalHtml = section.images.map(img => `
+              <div class="hero-carousel-item flex-shrink-0 w-full relative overflow-hidden rounded-3xl aspect-[4/5] lg:aspect-[16/9] bg-slate-200 dark:bg-neutral-900 group">
+                <img src="${img.url}" alt="${img.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                  <span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest uppercase bg-white text-black rounded-full">${img.badge || section.badge}</span>
+                  <h2 class="text-4xl font-extrabold text-white mb-4 leading-tight">${img.title || section.title}</h2>
+                  <p class="text-slate-300 mb-6 text-sm max-w-[250px]">${img.description || section.subtitle}</p>
+                  <a href="${img.buttonLink || section.buttonLink}" class="w-full py-4 bg-white text-black font-bold rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform inline-block text-center">
+                    <span>${img.buttonText || section.buttonText}</span>
+                    <span class="material-icons-round text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            `).join('');
+            
+            allItemsHtml = originalHtml;
+            
+            // Clonar items para carrusel continuo (solo si hay múltiples imágenes)
+            if (totalImages > 1) {
+              while (allItemsHtml.split('hero-carousel-item').length - 1 < 8) {
+                allItemsHtml += originalHtml;
+              }
+            }
+            
+            // Crear el carrusel
+            const carouselHtml = `
+              <section class="px-4 py-8 lg:px-6">
+                <div class="relative w-full overflow-hidden rounded-3xl">
+                  <div id="${heroCarouselId}" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0);" data-total-images="${totalImages}">
+                    ${allItemsHtml}
+                  </div>
+                  ${totalImages > 1 ? `
+                    <button onclick="heroCarouselPrev('${heroCarouselId}', ${totalImages})" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/80 dark:bg-black/80 hover:bg-white dark:hover:bg-black transition-colors">
+                      <span class="material-icons-round">navigate_before</span>
+                    </button>
+                    <button onclick="heroCarouselNext('${heroCarouselId}', ${totalImages})" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/80 dark:bg-black/80 hover:bg-white dark:hover:bg-black transition-colors">
+                      <span class="material-icons-round">navigate_next</span>
+                    </button>
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                      ${section.images.map((_, idx) => `<button onclick="heroCarouselTo('${heroCarouselId}', ${idx}, ${totalImages})" class="w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-colors hero-dot-${heroCarouselId}" data-index="${idx}"></button>`).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+              </section>
+            `;
+            
+            if (dynamicContainer) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = carouselHtml;
+              dynamicContainer.appendChild(tempDiv.firstElementChild);
+            }
+            
+            // Inicializar carrusel siempre (incluso con 1 imagen)
+            const carouselElement = document.getElementById(heroCarouselId);
+            if (carouselElement) {
+              initHeroCarousel(heroCarouselId, totalImages);
+            }
+          } else {
+            // Backwards compatible: si no hay array de imágenes, usar imageUrl
+            // Crear HTML del hero simple
+            const heroHtml = `
+              <section class="px-4 py-8 lg:px-6">
+                <div class="relative overflow-hidden rounded-3xl aspect-[4/5] lg:aspect-[16/9] bg-slate-200 dark:bg-neutral-900 group max-w-full">
+                  <img alt="${section.title}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" src="${section.imageUrl}"/>
+                  <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                  <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest uppercase bg-white text-black rounded-full">${section.badge}</span>
+                    <h2 class="text-4xl font-extrabold text-white mb-4 leading-tight">${section.title}</h2>
+                    <p class="text-slate-300 mb-6 text-sm max-w-[250px]">${section.subtitle}</p>
+                    <a href="${section.buttonLink}" class="w-full py-4 bg-white text-black font-bold rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform inline-block text-center">
+                      <span>${section.buttonText}</span>
+                      <span class="material-icons-round text-sm">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </section>
+            `;
+            if (dynamicContainer) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = heroHtml;
+              dynamicContainer.appendChild(tempDiv.firstElementChild);
+            }
+            
+            console.log('✓ Hero section actualizada (modo simple)');
+          }
         } else if (section.type === 'text-image') {
           // Texto a la izquierda, imagen a la derecha
           const html = `
@@ -702,22 +704,183 @@ const themeManager = {
             console.log('✓ Gallery section creada:', section.id);
           }
         } else if (section.type === 'categories') {
-          const catTitle = document.getElementById('categories-title');
-          if (catTitle) catTitle.textContent = section.title;
-          console.log('✓ Categories section actualizada');
+          // Crear sección de categorías dinámica
+          const html = `
+            <section class="py-12 px-4 bg-white dark:bg-gray-900">
+              <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-10">
+                  <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${section.title || 'Categorías Destacadas'}</h2>
+                  ${section.subtitle ? `<p class="text-gray-600 dark:text-gray-300">${section.subtitle}</p>` : ''}
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                  ${(section.categories || []).map(cat => `
+                    <a href="${cat.link || '#'}" class="flex flex-col items-center justify-center p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
+                      <span class="text-4xl text-gray-600 dark:text-gray-300 mb-3 material-icons-round">${cat.icon || 'category'}</span>
+                      <h3 class="text-center font-semibold text-gray-900 dark:text-white text-sm">${cat.name || 'Categoría'}</h3>
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+            </section>
+          `;
+          if (dynamicContainer) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            dynamicContainer.appendChild(tempDiv.firstElementChild);
+            console.log('✓ Categories section actualizada con', (section.categories || []).length, 'categorías');
+          }
         } else if (section.type === 'featured-products') {
-          // Actualizar featured products si es necesario
-          console.log('✓ Featured-Products section actualizada');
+          // Crear sección de productos destacados dinámica
+          const products = section.products || [];
+          const productsCarouselId = `products-carousel-${section.id}`;
+          
+          if (products.length === 0) {
+            console.warn('⚠️ Productos destacados sin productos:', section.id);
+          }
+          
+          // Si hay más de 4 productos, usar carousel como la galería
+          let html = '';
+          
+          if (products.length > 4) {
+            // Generar items del carousel
+            let allProductsHtml = '';
+            
+            const originalHtml = products.map(prod => `
+              <div class="products-item">
+                <a href="${prod.detailLink || '/product-detail.html?id=' + prod.id}" class="flex flex-col h-full bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+                  <div class="h-56 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                    ${prod.image ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">` : `<span class="text-6xl text-gray-400 material-icons-round">devices</span>`}
+                  </div>
+                  <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 class="font-semibold text-gray-900 dark:text-white mb-1">${prod.name || 'Producto'}</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">${prod.category || 'Categoría'}</p>
+                    </div>
+                    <p class="text-lg font-bold text-blue-600 dark:text-blue-400">${prod.price || '$0.00'}</p>
+                  </div>
+                </a>
+              </div>
+            `).join('');
+            
+            allProductsHtml = originalHtml;
+            
+            // Clonar productos hasta tener al menos 20 items para el carousel
+            while (allProductsHtml.split('products-item').length - 1 < 20) {
+              allProductsHtml += originalHtml;
+            }
+            
+            const totalProductsGenerated = allProductsHtml.split('products-item').length - 1;
+            console.log(`📊 Featured-Products: ${products.length} originales → ${totalProductsGenerated} items en carousel`);
+            
+            html = `
+              <section class="py-16 px-4 md:px-8 bg-gray-50 dark:bg-gray-800">
+                <div class="max-w-7xl mx-auto">
+                  <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${section.title || 'Productos Destacados'}</h2>
+                    ${section.subtitle ? `<p class="text-gray-600 dark:text-gray-300">${section.subtitle}</p>` : ''}
+                  </div>
+                  
+                  <div class="relative w-full">
+                    <!-- Botón izquierda -->
+                    <button onclick="productsCarouselPrev('${productsCarouselId}')" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 -ml-6 p-2 rounded-full bg-white dark:bg-gray-700 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                      <span class="material-icons-round text-gray-900 dark:text-white">chevron_left</span>
+                    </button>
+                    
+                    <!-- Carousel -->
+                    <div class="overflow-hidden rounded-lg bg-white dark:bg-gray-800">
+                      <div id="${productsCarouselId}" class="products-carousel" style="transition: transform 0.5s ease-out;">
+                        ${allProductsHtml}
+                      </div>
+                    </div>
+                    
+                    <!-- Botón derecha -->
+                    <button onclick="productsCarouselNext('${productsCarouselId}')" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 -mr-6 p-2 rounded-full bg-white dark:bg-gray-700 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                      <span class="material-icons-round text-gray-900 dark:text-white">chevron_right</span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+            `;
+          } else {
+            // Si hay 4 o menos productos, mostrar en grid
+            html = `
+              <section class="py-12 px-4 bg-gray-50 dark:bg-gray-800">
+                <div class="max-w-6xl mx-auto">
+                  <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${section.title || 'Productos Destacados'}</h2>
+                    ${section.subtitle ? `<p class="text-gray-600 dark:text-gray-300">${section.subtitle}</p>` : ''}
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    ${products.map(prod => `
+                      <a href="${prod.detailLink || '/product-detail.html?id=' + prod.id}" class="flex flex-col bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+                        <div class="h-56 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                          ${prod.image ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">` : `<span class="text-6xl text-gray-400 material-icons-round">devices</span>`}
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                          <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">${prod.name || 'Producto'}</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">${prod.category || 'Categoría'}</p>
+                          </div>
+                          <p class="text-lg font-bold text-blue-600 dark:text-blue-400">${prod.price || '$0.00'}</p>
+                        </div>
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              </section>
+            `;
+          }
+          
+          if (dynamicContainer) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            dynamicContainer.appendChild(tempDiv.firstElementChild);
+            
+            // Inicializar carousel si hay más de 4 productos
+            if (products.length > 4) {
+              setTimeout(() => {
+                console.log('⏱️ Inicializando carousel de productos:', productsCarouselId);
+                initProductsCarousel(productsCarouselId, products.length);
+              }, 100);
+            }
+            
+            console.log('✓ Featured-Products section actualizada con', products.length, 'productos');
+          }
         } else if (section.type === 'newsletter') {
-          const newsTitle = document.getElementById('newsletter-title');
-          const newsSubtitle = document.getElementById('newsletter-subtitle');
-          const newsEmail = document.getElementById('newsletter-email');
-          
-          if (newsTitle) newsTitle.textContent = section.title;
-          if (newsSubtitle) newsSubtitle.textContent = section.subtitle;
-          if (newsEmail) newsEmail.placeholder = section.placeholderEmail;
-          
-          console.log('✓ Newsletter section actualizada');
+          // Crear sección de newsletter dinámica
+          const html = `
+            <section class="py-16 px-4 md:px-8 bg-blue-600 dark:bg-blue-900">
+              <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">${section.title || 'Suscríbete a Nuestro Newsletter'}</h2>
+                <p class="text-blue-100 mb-8 text-lg">${section.subtitle || 'Recibe las últimas ofertas y noticias directamente en tu email'}</p>
+                
+                <form class="flex flex-col sm:flex-row gap-3" onsubmit="handleNewsletterSubmit(event)">
+                  <input 
+                    type="email" 
+                    required 
+                    placeholder="${section.placeholderEmail || 'Tu email'}" 
+                    class="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  >
+                  <button 
+                    type="submit" 
+                    class="px-8 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors whitespace-nowrap"
+                  >
+                    ${section.buttonText || 'Suscribirse'}
+                  </button>
+                </form>
+                
+                <p class="text-blue-100 text-xs mt-4">No compartimos tu email con nadie. Puedes darte de baja en cualquier momento.</p>
+              </div>
+            </section>
+          `;
+          if (dynamicContainer) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            dynamicContainer.appendChild(tempDiv.firstElementChild);
+            console.log('✓ Newsletter section actualizada');
+          }
         } else {
           console.warn('⚠️ Tipo de sección desconocido:', section.type, section.id);
         }
@@ -920,6 +1083,212 @@ const themeManager = {
     observer.observe(carousel.parentElement, { childList: true, subtree: true });
   }
 
+  // Funciones para el carrusel del hero
+  let heroCarouselIntervals = {};
+
+  window.initHeroCarousel = (carouselId, totalImages) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    // Limpiar intervalo anterior si existe
+    if (heroCarouselIntervals[carouselId]) {
+      clearInterval(heroCarouselIntervals[carouselId]);
+    }
+
+    // Inicializar tiempo de inicio
+    if (!window.heroCarouselStartTime) window.heroCarouselStartTime = {};
+    window.heroCarouselStartTime[carouselId] = new Date().getTime();
+
+    // Iniciar carrusel automático cada 3 segundos
+    heroCarouselIntervals[carouselId] = setInterval(() => {
+      const elapsedMs = new Date().getTime() - window.heroCarouselStartTime[carouselId];
+      const slideIndex = Math.floor(elapsedMs / 3000) % totalImages;
+      updateHeroCarouselPosition(carouselId, slideIndex, totalImages);
+    }, 300); // Actualizar cada 300ms para suavidad
+  };
+
+  window.updateHeroCarouselPosition = (carouselId, slideIndex, totalImages) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    const translatePercent = -(slideIndex * 100);
+    carousel.style.transform = `translateX(${translatePercent}%)`;
+    carousel.style.transition = 'transform 0.5s ease-out';
+
+    // Actualizar dots
+    document.querySelectorAll(`.hero-dot-${carouselId}`).forEach((dot, idx) => {
+      if (idx === slideIndex) {
+        dot.classList.add('!bg-white');
+        dot.classList.remove('bg-white/50');
+      } else {
+        dot.classList.remove('!bg-white');
+        dot.classList.add('bg-white/50');
+      }
+    });
+  };
+
+  window.heroCarouselNext = (carouselId, totalImages) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    const current = Math.round(-parseInt(carousel.style.transform.match(/[\d.]+/)[0]) / 100);
+    const nextSlide = (current + 1) % totalImages;
+    
+    // Limpiar y reiniciar intervalo
+    clearInterval(heroCarouselIntervals[carouselId]);
+    if (!window.heroCarouselStartTime) window.heroCarouselStartTime = {};
+    window.heroCarouselStartTime[carouselId] = new Date().getTime();
+    updateHeroCarouselPosition(carouselId, nextSlide, totalImages);
+    heroCarouselIntervals[carouselId] = setInterval(() => {
+      let next = (nextSlide + Math.floor(((new Date()).getTime() - window.heroCarouselStartTime[carouselId]) / 3000)) % totalImages;
+      updateHeroCarouselPosition(carouselId, next, totalImages);
+    }, 300);
+  };
+
+  window.heroCarouselPrev = (carouselId, totalImages) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    const current = Math.round(-parseInt(carousel.style.transform.match(/[\d.]+/)[0]) / 100);
+    const prevSlide = (current - 1 + totalImages) % totalImages;
+    
+    // Limpiar y reiniciar intervalo
+    clearInterval(heroCarouselIntervals[carouselId]);
+    if (!window.heroCarouselStartTime) window.heroCarouselStartTime = {};
+    window.heroCarouselStartTime[carouselId] = new Date().getTime();
+    updateHeroCarouselPosition(carouselId, prevSlide, totalImages);
+    heroCarouselIntervals[carouselId] = setInterval(() => {
+      let next = (prevSlide + Math.floor(((new Date()).getTime() - window.heroCarouselStartTime[carouselId]) / 3000)) % totalImages;
+      updateHeroCarouselPosition(carouselId, next, totalImages);
+    }, 300);
+  };
+
+  window.heroCarouselTo = (carouselId, slideIndex, totalImages) => {
+    // Limpiar y reiniciar intervalo
+    clearInterval(heroCarouselIntervals[carouselId]);
+    if (!window.heroCarouselStartTime) window.heroCarouselStartTime = {};
+    window.heroCarouselStartTime[carouselId] = new Date().getTime();
+    updateHeroCarouselPosition(carouselId, slideIndex, totalImages);
+    heroCarouselIntervals[carouselId] = setInterval(() => {
+      let next = (slideIndex + Math.floor(((new Date()).getTime() - window.heroCarouselStartTime[carouselId]) / 3000)) % totalImages;
+      updateHeroCarouselPosition(carouselId, next, totalImages);
+    }, 300);
+  };
+
+  // Newsletter form handler
+  window.handleNewsletterSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.querySelector('input[type="email"]').value;
+    
+    // Guardar email en localStorage (o enviar a servidor)
+    const subscribedEmails = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+    if (!subscribedEmails.includes(email)) {
+      subscribedEmails.push(email);
+      localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribedEmails));
+    }
+    
+    // Mostrar confirmación
+    const button = event.target.querySelector('button');
+    const originalText = button.textContent;
+    button.textContent = '✓ ¡Gracias por suscribirse!';
+    button.classList.add('bg-green-500');
+    
+    // Limpiar formulario
+    event.target.reset();
+    
+    // Restaurar botón después de 3 segundos
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('bg-green-500');
+    }, 3000);
+    
+    console.log('📧 Email suscrito:', email);
+  };
+
+  // Carousel de productos destacados
+  let productsCarouselIntervals = {};
+
+  function initProductsCarousel(carouselId, totalProducts) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel || totalProducts === 0) return;
+
+    const productsPerView = window.innerWidth < 768 ? 1 : 4;
+    const itemWidthPercent = 100 / productsPerView;
+    
+    console.log(`🎬 Carrusel de productos iniciado: ${totalProducts} originales, ${productsPerView} visibles`);
+    
+    let currentSlide = 0;
+
+    productsCarouselIntervals[carouselId] = setInterval(() => {
+      currentSlide++;
+      
+      // Resetear después de mostrar todos los productos originales una vez
+      if (currentSlide > totalProducts) {
+        carousel.style.transition = 'none';
+        currentSlide = 0;
+        carousel.style.transform = `translate3d(0%, 0, 0)`;
+        console.log(`↻ Reset a inicio`);
+        
+        setTimeout(() => {
+          carousel.style.transition = 'transform 0.5s ease-out';
+        }, 50);
+      } else {
+        const translatePercent = -(currentSlide * itemWidthPercent);
+        carousel.style.transition = 'transform 0.5s ease-out';
+        carousel.style.transform = `translate3d(${translatePercent}%, 0, 0)`;
+        console.log(`📍 Producto ${currentSlide}/${totalProducts}: translate3d(${translatePercent}%, 0, 0)`);
+      }
+    }, 3000); // Cambiar cada 3 segundos como el hero
+    
+    // Limpiar si se elimina
+    const observer = new MutationObserver(() => {
+      if (!document.contains(carousel)) {
+        clearInterval(productsCarouselIntervals[carouselId]);
+        observer.disconnect();
+      }
+    });
+    observer.observe(carousel.parentElement, { childList: true, subtree: true });
+  }
+
+  window.productsCarouselNext = (carouselId) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+    
+    const productsPerView = window.innerWidth < 768 ? 1 : 4;
+    const itemWidthPercent = 100 / productsPerView;
+    const current = Math.round(-parseInt(carousel.style.transform.match(/[\d.]+/)?.[0] || 0) / itemWidthPercent);
+    const nextSlide = current + 1;
+    const totalProducts = carousel.querySelectorAll('.products-item').length;
+    
+    // Limitar al máximo de productos
+    if (nextSlide > totalProducts) return;
+    
+    carousel.style.transition = 'transform 0.5s ease-out';
+    carousel.style.transform = `translate3d(${-(nextSlide * itemWidthPercent)}%, 0, 0)`;
+    
+    // Reiniciar el intervalo automático
+    clearInterval(productsCarouselIntervals[carouselId]);
+    initProductsCarousel(carouselId, totalProducts);
+  };
+
+  window.productsCarouselPrev = (carouselId) => {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+    
+    const productsPerView = window.innerWidth < 768 ? 1 : 4;
+    const itemWidthPercent = 100 / productsPerView;
+    const current = Math.round(-parseInt(carousel.style.transform.match(/[\d.]+/)?.[0] || 0) / itemWidthPercent);
+    const prevSlide = Math.max(0, current - 1);
+    const totalProducts = carousel.querySelectorAll('.products-item').length;
+    
+    carousel.style.transition = 'transform 0.5s ease-out';
+    carousel.style.transform = `translate3d(${-(prevSlide * itemWidthPercent)}%, 0, 0)`;
+    
+    // Reiniciar el intervalo automático
+    clearInterval(productsCarouselIntervals[carouselId]);
+    initProductsCarousel(carouselId, totalProducts);
+  };
+
   // Inicializar contenido
   updateThemeIcon();
   loadSectionsData();
@@ -934,6 +1303,10 @@ const themeManager = {
     }
     if (event.key === 'tecno_landing_sections') {
       console.log('📦 Cambios detectados en landing-sections desde otra pestaña');
+      loadSectionsData();
+    }
+    if (event.key === 'landing_editor_last_save') {
+      console.log('📝 Cambios detectados desde el editor - recargando landing page');
       loadSectionsData();
     }
   });
@@ -974,10 +1347,32 @@ const themeManager = {
   <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
     <!-- Footer Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-      <!-- Brand -->
+      <!-- Brand & Contact Info -->
       <div>
         <h3 class="text-2xl font-bold mb-4">TECNO THINGS</h3>
         <p class="text-slate-400 mb-6">Tienda autorizada / Pc Gamer / Streaming</p>
+        
+        <!-- Contact Information -->
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-3">
+            <span class="material-icons-round text-accent mt-1 flex-shrink-0">location_on</span>
+            <span class="text-slate-400 text-sm">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">phone</span>
+            <span class="text-slate-400 text-sm">+593 96 287 3167</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">mail</span>
+            <span class="text-slate-400 text-sm">info@techthings.com</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-icons-round text-accent flex-shrink-0">schedule</span>
+            <span class="text-slate-400 text-sm">Lun-Vie: 9AM-6PM</span>
+          </div>
+        </div>
+
+        <!-- Social Links -->
         <div class="flex gap-4">
           <a href="https://www.instagram.com/tecnothings_ec/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-accent flex items-center justify-center transition-colors">
             <span class="material-icons-round text-lg">camera_alt</span>
@@ -1015,27 +1410,22 @@ const themeManager = {
         </ul>
       </div>
 
-      <!-- Contacto -->
+      <!-- Google Maps -->
       <div>
-        <h4 class="text-lg font-semibold mb-6">Contacto</h4>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">location_on</span>
-            <span class="text-slate-400">Matriz Tecnothings Centro comercial San Felipe, Guayaquil, Ecuador 090101</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">phone</span>
-            <span class="text-slate-400">+593 96 287 3167</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">mail</span>
-            <span class="text-slate-400">info@techthings.com</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons-round text-accent mt-1">schedule</span>
-            <span class="text-slate-400">Lun-Vie: 9AM-6PM</span>
-          </li>
-        </ul>
+        <h4 class="text-lg font-semibold mb-6">Ubicación</h4>
+        <div class="rounded-lg overflow-hidden border border-slate-700 h-64 w-full">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.5779746282846!2d-79.9309434!3d-2.1294174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d733792952ed1:0x2fda88783fa806f2!2sTECNOTHINGS%20GYE!5e0!3m2!1ses!2sec!4v1707593400000"
+            allowfullscreen="" 
+            aria-hidden="false" 
+            tabindex="0">
+          </iframe>
+        </div>
       </div>
     </div>
 
