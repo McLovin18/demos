@@ -33,6 +33,13 @@
       font-family: 'Inter', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen pb-24 lg:pb-0">
@@ -324,11 +331,11 @@
       </div>
 
       <!-- Botones -->
-      <div class="space-y-2 pt-4">
-        <button onclick="sendOrderViaWhatsApp()" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors text-center">
+      <div class="space-y-2 pt-4 flex flex-col items-center gap-2">
+        <button onclick="sendOrderViaWhatsApp()" class="w-fit flex items-center justify-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors text-center whitespace-nowrap">
           <span>Comprar por WhatsApp</span>
         </button>
-        <button onclick="processPayment()" class="w-full px-6 py-2 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors text-center">
+        <button onclick="processPayment()" class="w-fit px-6 py-2 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-colors text-center whitespace-nowrap">
           Procesar Pago Demo
         </button>
       </div>
@@ -337,15 +344,19 @@
 </div>
 
 <!-- MOBILE BOTTOM NAV -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-4 pt-3 pb-8 z-40 flex justify-between items-center lg:hidden">
-  <a href="./clientDashboard.html" class="flex flex-col items-center gap-1">
-    <span class="material-icons-round">home</span>
-    <span class="text-[10px] font-bold">Panel</span>
-  </a>
-  <button onclick="goToAccount()" class="flex flex-col items-center gap-1">
-    <span class="material-icons-round">person_outline</span>
-    <span class="text-[10px] font-medium">Cuenta</span>
-  </button>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 pt-3 pb-8 z-40 lg:hidden">
+  <div class="overflow-x-auto hide-scrollbar">
+    <div class="flex items-center gap-2 px-4 min-w-max w-full">
+      <a href="./clientDashboard.html" class="flex flex-col items-center gap-1 flex-shrink-0">
+        <span class="material-icons-round">home</span>
+        <span class="text-[10px] font-bold">Panel</span>
+      </a>
+      <button onclick="goToAccount()" class="flex flex-col items-center gap-1 flex-shrink-0">
+        <span class="material-icons-round">person_outline</span>
+        <span class="text-[10px] font-medium">Cuenta</span>
+      </button>
+    </div>
+  </div>
 </nav>
 
 <script type="module">
@@ -524,7 +535,7 @@
     const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
 
     // Generar mensaje
-    let message = `¡Hola! Soy ${user ? user.name : 'Cliente'}, Me interesa hacer un pedido desde tu tienda online:\n\n`;
+    let message = `¡Hola! amigos de Tecno Things, Me interesa hacer un pedido desde tu tienda online:\n\n`;
     message += `*PRODUCTOS SELECCIONADOS:*\n`;
     
     cart.forEach((item, index) => {

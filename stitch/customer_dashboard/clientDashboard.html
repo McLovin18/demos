@@ -268,7 +268,7 @@
 </div>
 
 <!-- SIDEBAR (desktop) - Compact Icon Sidebar -->
-<div class="hidden lg:flex fixed left-0 top-0 bottom-0 w-48 z-50 bg-white dark:bg-card-dark border-r border-slate-200 dark:border-neutral-800 flex-col items-center py-6 pt-6 px-4">
+<div class="hidden md:flex fixed left-0 top-0 bottom-0 w-48 z-50 bg-white dark:bg-card-dark border-r border-slate-200 dark:border-neutral-800 flex-col items-center py-6 pt-6 px-4">
   <!-- Logo -->
   <a href="../tecno_things_landing_page/index.html" class="flex flex-col items-center justify-center cursor-pointer hover:opacity-80 transition-opacity mb-8 w-full">
     <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 text-center leading-tight">Tienda Autorizada</span>
@@ -313,12 +313,12 @@
 </div>
 
 <!-- MAIN CONTENT -->
-<main class="lg:ml-48 px-4 pt-20 lg:pt-24 space-y-8 lg:px-6">
+<main class="md:ml-48 px-4 pt-20 md:pt-24 space-y-8 md:px-6">
   <!-- Se llena dinámicamente con showMenuCustomer() -->
 </main>
 
 <!-- FLOATING CART BUTTON (mobile) -->
-<a href="./cart.html" class="fixed bottom-24 right-6 z-40 lg:hidden block">
+<a href="./cart.html" class="fixed bottom-24 right-6 z-40 md:hidden block">
   <div class="w-16 h-16 bg-primary text-black rounded-full shadow-2xl flex items-center justify-center group active:scale-95 transition-transform border-4 border-white dark:border-background-dark">
     <div class="relative">
       <span class="material-icons-round text-3xl">shopping_cart</span>
@@ -328,24 +328,30 @@
 </a>
 
 <!-- MOBILE BOTTOM NAV -->
-<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-neutral-800 pb-8 pt-3 px-6 lg:hidden">
-  <div class="max-w-lg mx-auto flex justify-between items-center">
-    <button onclick="showMenuCustomer('home')" class="flex flex-col items-center space-y-1 text-slate-900 dark:text-white">
-      <span class="material-icons-round">home</span>
-      <span class="text-[10px] font-bold">Inicio</span>
-    </button>
-    <button onclick="showMenuCustomer('products')" class="flex flex-col items-center space-y-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors">
-      <span class="material-icons-round">grid_view</span>
-      <span class="text-[10px] font-medium">Productos</span>
-    </button>
-    <button onclick="showMenuCustomer('favorites')" class="flex flex-col items-center space-y-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors">
-      <span class="material-icons-round">favorite_border</span>
-      <span class="text-[10px] font-medium">Favoritos</span>
-    </button>
-    <button onclick="showMenuCustomer('purchases')" class="flex flex-col items-center space-y-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors">
-      <span class="material-icons-round">shopping_bag</span>
-      <span class="text-[10px] font-medium">Mis Compras</span>
-    </button>
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-neutral-800 pb-6 pt-3 md:hidden">
+  <div class="overflow-x-auto hide-scrollbar">
+    <div class="flex items-center gap-2 px-3 min-w-max w-full">
+      <button onclick="showMenuCustomer('home')" class="flex flex-col items-center gap-1 text-slate-900 dark:text-white flex-shrink-0 w-24 lg:w-28">
+        <span class="material-icons-round text-2xl">home</span>
+        <span class="text-[10px] font-bold text-center line-clamp-1">Inicio</span>
+      </button>
+      <button onclick="showMenuCustomer('favorites')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors flex-shrink-0 w-24 lg:w-28">
+        <span class="material-icons-round text-2xl">favorite_border</span>
+        <span class="text-[10px] font-medium text-center line-clamp-1">Favoritos</span>
+      </button>
+      <button onclick="showMenuCustomer('products')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors flex-shrink-0 w-24 lg:w-28">
+        <span class="material-icons-round text-2xl">grid_view</span>
+        <span class="text-[10px] font-medium text-center line-clamp-1">Productos</span>
+      </button>
+      <button onclick="showMenuCustomer('purchases')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors flex-shrink-0 w-24 lg:w-28">
+        <span class="material-icons-round text-2xl">shopping_bag</span>
+        <span class="text-[10px] font-medium text-center line-clamp-1">Mis Pedidos</span>
+      </button>
+      <button onclick="showMenuCustomer('account')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-neutral-500 hover:text-slate-900 dark:hover:text-white transition-colors flex-shrink-0 w-24 lg:w-28">
+        <span class="material-icons-round text-2xl">person_outline</span>
+        <span class="text-[10px] font-medium text-center line-clamp-1">Cuenta</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -637,12 +643,12 @@
     
     favoritesGrid.innerHTML = favoriteProducts.map(product => `
       <div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-neutral-800 overflow-hidden hover:shadow-lg transition-shadow group">
-        <div class="relative aspect-square bg-slate-100 dark:bg-neutral-800 overflow-hidden flex items-center justify-center">
+        <a href="./product-detail.html?id=${product.id}" class="relative aspect-square bg-slate-100 dark:bg-neutral-800 overflow-hidden flex items-center justify-center cursor-pointer block">
           <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-          <button onclick="window.toggleFavorite(${product.id})" class="absolute top-3 right-3 p-1.5 bg-white/80 dark:bg-black/40 backdrop-blur rounded-full hover:bg-white dark:hover:bg-black/60 transition-colors">
+          <button onclick="event.preventDefault(); window.toggleFavorite(${product.id})" class="absolute top-3 right-3 p-1.5 bg-white/80 dark:bg-black/40 backdrop-blur rounded-full hover:bg-white dark:hover:bg-black/60 transition-colors">
             <span class="material-icons-round text-sm text-red-500">favorite</span>
           </button>
-        </div>
+        </a>
         <div class="p-4">
           <h3 class="font-semibold text-sm mb-1 line-clamp-2">${product.name}</h3>
           <p class="text-xs text-slate-500 dark:text-neutral-400 mb-3">${product.category}</p>
@@ -680,12 +686,12 @@
 
     grid.innerHTML = filtered.map(p => `
       <div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-100 dark:border-neutral-800 overflow-hidden hover:shadow-lg transition-shadow group">
-        <div class="relative aspect-square bg-slate-100 dark:bg-neutral-800 overflow-hidden flex items-center justify-center">
+        <a href="./product-detail.html?id=${p.id}" class="relative aspect-square bg-slate-100 dark:bg-neutral-800 overflow-hidden flex items-center justify-center cursor-pointer block">
           <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-          <button onclick="window.toggleFavorite(${p.id})" class="absolute top-3 right-3 p-1.5 bg-white/80 dark:bg-black/40 backdrop-blur rounded-full hover:bg-white dark:hover:bg-black/60 transition-colors">
+          <button onclick="event.preventDefault(); window.toggleFavorite(${p.id})" class="absolute top-3 right-3 p-1.5 bg-white/80 dark:bg-black/40 backdrop-blur rounded-full hover:bg-white dark:hover:bg-black/60 transition-colors">
             <span class="material-icons-round text-sm text-red-500">${window.isFavorite(p.id) ? 'favorite' : 'favorite_border'}</span>
           </button>
-        </div>
+        </a>
         <div class="p-4">
           <h3 class="font-semibold text-sm mb-1 line-clamp-2">${p.name}</h3>
           <p class="text-xs text-slate-500 dark:text-neutral-400 mb-3">${p.category}</p>
@@ -904,7 +910,7 @@
 </script>
 
 <!-- FOOTER -->
-<footer class="bg-slate-900 dark:bg-black text-white mt-20 border-t border-slate-800 lg:ml-48">
+<footer class="bg-slate-900 dark:bg-black text-white mt-20 border-t border-slate-800 md:ml-48">
   <div class="px-4 py-16 lg:px-6 max-w-6xl mx-auto">
     <!-- Footer Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
