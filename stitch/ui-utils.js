@@ -30,7 +30,7 @@ export const updateAuthUI = () => {
           <span class="hidden md:inline text-sm font-medium">${user.name}</span>
           <span class="material-icons-round text-lg">keyboard_arrow_down</span>
         </button>
-        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-lg hidden group-hover:block overflow-hidden z-50">
+        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-lg hidden group-hover:block overflow-hidden z-[9999]">
           <div class="px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
             <p class="text-sm font-medium">${user.name}</p>
             <p class="text-xs text-slate-500 dark:text-zinc-400">${user.email}</p>

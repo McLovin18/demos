@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Productos por Categoría | Tecno Things</title>
+  <title>Resultados de Búsqueda | Tecno Things</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
@@ -314,14 +314,14 @@
   <div class="flex items-center gap-2 mb-6">
     <a href="./index.html" class="text-sm text-slate-500 dark:text-slate-400 hover:text-accent">Inicio</a>
     <span class="text-slate-500 dark:text-slate-400">/</span>
-    <span id="category-name" class="text-sm font-medium text-accent">Categoría</span>
+    <span class="text-sm font-medium text-accent">Búsqueda</span>
   </div>
 
   <!-- Filtros y opciones -->
   <div class="mb-6 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
     <div>
-      <h1 id="page-title" class="text-3xl font-bold mb-2">Productos</h1>
-      <p id="product-count" class="text-sm text-slate-500 dark:text-slate-400">Mostrando 0 productos</p>
+      <h1 id="page-title" class="text-3xl font-bold mb-2">Resultados de búsqueda</h1>
+      <p id="product-count" class="text-sm text-slate-500 dark:text-slate-400">Buscando...</p>
     </div>
     
     <div class="flex gap-2 w-full lg:w-auto">
@@ -334,14 +334,6 @@
     </div>
   </div>
 
-  <!-- Subcategorías -->
-  <div class="mb-8 pb-8 border-b border-slate-200 dark:border-slate-700">
-    <h3 class="text-sm font-semibold mb-4">Subcategorías</h3>
-    <div id="subcategories-container" class="flex flex-wrap gap-2">
-      <!-- Se llena dinámicamente -->
-    </div>
-  </div>
-
   <!-- Grid de productos -->
   <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
     <!-- Se llena dinámicamente -->
@@ -349,9 +341,9 @@
 
   <!-- Empty state -->
   <div id="empty-state" class="hidden text-center py-12">
-    <span class="material-icons-round text-5xl opacity-20">inventory_2</span>
-    <h3 class="text-lg font-semibold mt-4">No hay productos</h3>
-    <p class="text-sm text-slate-500 dark:text-slate-400">No encontramos productos en esta categoría</p>
+    <span class="material-icons-round text-5xl opacity-20">search</span>
+    <h3 class="text-lg font-semibold mt-4">No encontramos productos</h3>
+    <p class="text-sm text-slate-500 dark:text-slate-400" id="empty-message">No hay productos que coincidan con tu búsqueda</p>
     <a href="./index.html" class="inline-block mt-4 px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent/90">
       Volver al Inicio
     </a>
@@ -427,145 +419,110 @@
   const closeSearchBtn = document.getElementById('close-search');
   const searchInput = document.getElementById('search-input');
 
-  if (searchButton) {
-    searchButton.addEventListener('click', () => {
-      searchModal.classList.remove('hidden');
-      searchInput.focus();
-    });
-  }
-
-  if (closeSearchBtn) {
-    closeSearchBtn.addEventListener('click', () => {
-      searchModal.classList.add('hidden');
-    });
-  }
-
-  if (searchModal) {
-    searchModal.addEventListener('click', (e) => {
-      if (e.target === searchModal) {
-        searchModal.classList.add('hidden');
-      }
-    });
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const query = searchInput.value.trim();
-        if (query) {
-          window.location.href = `./search-results.html?q=${encodeURIComponent(query)}`;
-        }
-      }
-    });
-
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.trim();
-      const suggestionsContainer = document.getElementById('search-suggestions');
-
-      if (!query) {
-        suggestionsContainer.innerHTML = '';
-        return;
-      }
-
-      const results = PRODUCTS.filter(p => 
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.category.toLowerCase().includes(query.toLowerCase()) ||
-        p.subcategory.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 5);
-
-      suggestionsContainer.innerHTML = results.map(p => `
-        <a href="./product-detail.html?id=${p.id}" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 border-b border-slate-200 dark:border-white/10 text-sm">
-          <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded">
-          <div class="flex-1 min-w-0">
-            <p class="font-medium line-clamp-1">${p.name}</p>
-            <p class="text-xs text-slate-500 dark:text-slate-400">$${p.price.toFixed(2)}</p>
-          </div>
-        </a>
-      `).join('');
-    });
-  }
-
-  // Obtener categoría de URL
-  const params = new URLSearchParams(window.location.search);
-  const categoryId = params.get('category');
-  const selectedSubcategory = params.get('subcategory') || 'all'; // Obtener subcategoría de URL
-
-  if (!categoryId) {
-    window.location.href = './index.html';
-  }
-
-  const category = CATEGORIES.find(c => c.id === categoryId);
-  if (!category) {
-    window.location.href = './index.html';
-  }
-
-  // Actualizar encabezados
-  document.getElementById('page-title').textContent = category.label;
-  document.getElementById('category-name').textContent = category.label;
-
-  // Obtener subcategorías
-  const subcategories = getSubcategoriesByCategory(categoryId);
-
-  // Renderizar subcategorías
-  const subcategoriesContainer = document.getElementById('subcategories-container');
-  let selectedSubCategory = selectedSubcategory; // Usar el valor de URL
-
-  const allButton = document.createElement('button');
-  allButton.className = selectedSubCategory === 'all' ? 'px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium' : 'px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-sm font-medium hover:bg-accent hover:text-white transition-colors';
-  allButton.textContent = 'Ver Todos';
-  allButton.dataset.subCategory = 'all';
-  allButton.addEventListener('click', () => filterBySub('all', allButton));
-  subcategoriesContainer.appendChild(allButton);
-
-  subcategories.forEach(sub => {
-    const btn = document.createElement('button');
-    btn.className = selectedSubCategory === sub.value ? 'px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium' : 'px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-sm font-medium hover:bg-accent hover:text-white transition-colors';
-    btn.textContent = sub.label;
-    btn.dataset.subCategory = sub.value;
-    btn.addEventListener('click', () => filterBySub(sub.value, btn));
-    subcategoriesContainer.appendChild(btn);
+  searchButton.addEventListener('click', () => {
+    searchModal.classList.remove('hidden');
+    searchInput.focus();
   });
 
-  function filterBySub(subValue, btnElement) {
-    selectedSubCategory = subValue;
-    
-    // Actualizar botones activos
-    document.querySelectorAll('[data-sub-category]').forEach(btn => {
-      btn.classList.remove('bg-accent', 'text-white');
-      btn.classList.add('bg-slate-100', 'dark:bg-slate-800');
-    });
-    
-    if (btnElement) {
-      btnElement.classList.add('bg-accent', 'text-white');
-      btnElement.classList.remove('bg-slate-100', 'dark:bg-slate-800');
+  closeSearchBtn.addEventListener('click', () => {
+    searchModal.classList.add('hidden');
+  });
+
+  searchModal.addEventListener('click', (e) => {
+    if (e.target === searchModal) {
+      searchModal.classList.add('hidden');
     }
-    
-    renderProducts();
-  }
+  });
 
-  function getProductsForCategory() {
-    let filtered = PRODUCTS.filter(p => p.category === categoryId);
-    if (selectedSubCategory !== 'all') {
-      filtered = filtered.filter(p => p.subcategory === selectedSubCategory);
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const query = searchInput.value.trim();
+      if (query) {
+        window.location.href = `./search-results.html?q=${encodeURIComponent(query)}`;
+      }
     }
-    return filtered;
-  }
+  });
 
-  function renderProducts() {
-    const products = getProductsForCategory();
-    const grid = document.getElementById('products-grid');
-    const emptyState = document.getElementById('empty-state');
-    
-    document.getElementById('product-count').textContent = `Mostrando ${products.length} productos`;
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    const suggestionsContainer = document.getElementById('search-suggestions');
 
-    if (products.length === 0) {
-      grid.classList.add('hidden');
-      emptyState.classList.remove('hidden');
+    if (!query) {
+      suggestionsContainer.innerHTML = '';
       return;
     }
 
-    grid.classList.remove('hidden');
-    emptyState.classList.add('hidden');
+    const results = PRODUCTS.filter(p => 
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase()) ||
+      p.subcategory.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 5);
+
+    suggestionsContainer.innerHTML = results.map(p => `
+      <a href="./product-detail.html?id=${p.id}" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 border-b border-slate-200 dark:border-white/10 text-sm">
+        <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded">
+        <div class="flex-1 min-w-0">
+          <p class="font-medium line-clamp-1">${p.name}</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400">$${p.price.toFixed(2)}</p>
+        </div>
+      </a>
+    `).join('');
+  });
+
+  // Obtener parámetro de búsqueda
+  const params = new URLSearchParams(window.location.search);
+  const searchQuery = params.get('q') || '';
+
+  if (searchQuery) {
+    performSearch(searchQuery);
+  }
+
+  function performSearch(query) {
+    const results = PRODUCTS.filter(p =>
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase()) ||
+      p.subcategory.toLowerCase().includes(query.toLowerCase())
+    );
+
+    document.getElementById('page-title').textContent = `Resultados para "${query}"`;
+    document.getElementById('product-count').textContent = `Encontramos ${results.length} producto${results.length !== 1 ? 's' : ''}`;
+
+    if (results.length === 0) {
+      document.getElementById('products-grid').classList.add('hidden');
+      document.getElementById('empty-state').classList.remove('hidden');
+      document.getElementById('empty-message').textContent = `No encontramos productos para "${query}"`;
+      return;
+    }
+
+    document.getElementById('products-grid').classList.remove('hidden');
+    document.getElementById('empty-state').classList.add('hidden');
+
+    renderProducts(results);
+
+    // Sort handler
+    document.getElementById('sort-select').addEventListener('change', (e) => {
+      const sorted = sortProducts(results, e.target.value);
+      renderProducts(sorted);
+    });
+  }
+
+  function sortProducts(products, sortType) {
+    const sorted = [...products];
+    switch(sortType) {
+      case 'price-low':
+        return sorted.sort((a, b) => a.price - b.price);
+      case 'price-high':
+        return sorted.sort((a, b) => b.price - a.price);
+      case 'popular':
+        return sorted.sort((a, b) => b.popularity - a.popularity);
+      case 'newest':
+      default:
+        return sorted;
+    }
+  }
+
+  function renderProducts(products) {
+    const grid = document.getElementById('products-grid');
     grid.innerHTML = products.map(p => `
       <div class="flex flex-col gap-3 group bg-white dark:bg-slate-900 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
         <a href="./product-detail.html?id=${p.id}" class="relative aspect-square bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center p-6 cursor-pointer block">
@@ -658,7 +615,6 @@
   // Inicializar
   updateAuthUI();
   updateCartCount();
-  renderProducts();
 </script>
 
 <!-- FOOTER -->

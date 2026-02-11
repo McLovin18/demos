@@ -69,7 +69,7 @@
 <div id="mobile-menu" class="hidden lg:hidden fixed top-16 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-white/10 z-40 max-h-[calc(100vh-64px)] overflow-y-auto flex flex-col">
   <div class="px-4 py-2 space-y-1 flex-shrink-0">
     <a href="./clientDashboard.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Mi Tienda</a>
-    <a href="../tecno_things_landing_page/blogs.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Blogs</a>
+    <a href="./blogs.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Blogs</a>
     <a href="./cart.html" class="block px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-sm font-medium">Carrito</a>
   </div>
   
@@ -279,6 +279,18 @@
   import { CartManager } from '../cart-manager.js';
   import { themeManager } from '../theme.js';
 
+  // Verificar si hay usuario logeado, si no, redirigir a landing page
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+    if (productId) {
+      window.location.href = `../tecno_things_landing_page/product-detail.html?id=${productId}`;
+    } else {
+      window.location.href = '../tecno_things_landing_page/index.html';
+    }
+  }
+
   // Inicializar tema
   const savedTheme = localStorage.getItem('tecno-theme') || 'light';
   themeManager.applyTheme(savedTheme);
@@ -421,7 +433,7 @@
               ${user.avatar}
             </div>
           </button>
-          <div class="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl hidden group-hover:block z-50">
+          <div class="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl hidden group-hover:block z-[9999]">
             <div class="px-4 py-3 border-b border-slate-200 dark:border-white/10">
               <p class="text-sm font-medium">${user.name}</p>
               <p class="text-xs text-slate-500">${user.email}</p>
@@ -509,7 +521,7 @@
         <h4 class="text-lg font-semibold mb-6">Información</h4>
         <ul class="space-y-3">
           <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Sobre nosotros</a></li>
-          <li><a href="../tecno_things_landing_page/blogs.html" class="text-slate-400 hover:text-white transition-colors">Blog</a></li>
+          <li><a href="./blogs.html" class="text-slate-400 hover:text-white transition-colors">Blog</a></li>
           <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Política de privacidad</a></li>
           <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Términos de servicio</a></li>
           <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Contacto</a></li>
