@@ -81,6 +81,11 @@
   </div>
 </nav>
 
+<!-- Floating Search Button (Mobile) -->
+<button id="floating-search" class="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-accent text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95">
+  <span class="material-icons-round text-2xl">search</span>
+</button>
+
 <!-- Search Modal -->
 <div id="search-modal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-start justify-center pt-20">
   <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full mx-4 max-w-2xl">
@@ -517,12 +522,20 @@
 
   // Search functionality
   const searchButton = document.getElementById('search-button');
+  const floatingSearchBtn = document.getElementById('floating-search');
   const searchModal = document.getElementById('search-modal');
   const closeSearchBtn = document.getElementById('close-search');
   const searchInput = document.getElementById('search-input');
 
   if (searchButton) {
     searchButton.addEventListener('click', () => {
+      searchModal.classList.remove('hidden');
+      searchInput.focus();
+    });
+  }
+
+  if (floatingSearchBtn) {
+    floatingSearchBtn.addEventListener('click', () => {
       searchModal.classList.remove('hidden');
       searchInput.focus();
     });
